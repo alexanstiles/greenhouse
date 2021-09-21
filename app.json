@@ -2,7 +2,6 @@
   "expo": {
     "name": "Greenhouse Designs 13-Sep-2021-145518",
     "privacy": "public",
-    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android"
