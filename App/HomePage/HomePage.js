@@ -33,7 +33,7 @@ export default class HomePage extends React.Component {
 
 	render() {
 		return (
-			<Image source={require('C:/Users/david/OneDrive/Desktop/Mobile App Dev/Greenhouse/greenhouse/assets/images/HomePage.png')}/>
+			<Text>This is the HomePage</Text>
 		);
 	
 		// return <View
