@@ -10,6 +10,7 @@ import React from "react"
 import { Image, StyleSheet, Text, View } from "react-native"
 
 
+
 export default class HomePage extends React.Component {
 
 	static navigationOptions = ({ navigation }) => {
@@ -31,94 +32,97 @@ export default class HomePage extends React.Component {
 	}
 
 	render() {
+		return (
+			<Image source={require('C:/Users/david/OneDrive/Desktop/Mobile App Dev/Greenhouse/greenhouse/assets/images/HomePage.png')}/>
+		);
 	
-		return <View
-				style={styles.homePageView}>
-				<View
-					pointerEvents="box-none"
-					style={{
-						position: "absolute",
-						left: 0,
-						right: 0,
-						top: 0,
-						bottom: -1,
-					}}>
-					<View
-						pointerEvents="box-none"
-						style={{
-							position: "absolute",
-							left: 0,
-							right: 0,
-							top: 0,
-							bottom: 0,
-							justifyContent: "center",
-						}}>
-						<Image
-							source={require("./../../assets/images/home-page-background-mask.png")}
-							style={styles.homePageBackgroundMaskImage}/>
-					</View>
-					<View
-						pointerEvents="box-none"
-						style={{
-							position: "absolute",
-							left: 16,
-							right: 71,
-							top: 68,
-							bottom: 108,
-							alignItems: "flex-start",
-						}}>
-						<Text
-							style={styles.backText}></Text>
-						<View
-							pointerEvents="box-none"
-							style={{
-								alignSelf: "stretch",
-								height: 27,
-								marginLeft: 53,
-								marginTop: 49,
-								flexDirection: "row",
-								alignItems: "flex-start",
-							}}>
-							<Text
-								style={styles.body1Text}>Food Waste</Text>
-							<View
-								style={{
-									flex: 1,
-								}}/>
-							<Text
-								style={styles.body1TwoText}>in lbs</Text>
-						</View>
-						<Text
-							style={styles.body2Text}>June-July</Text>
-						<Text
-							style={styles.textText}>70%</Text>
-						<Text
-							style={styles.spentText}>70% spent</Text>
-						<Text
-							style={styles.body1ThreeText}>Food Waste by Item</Text>
-						<Text
-							style={styles.buyLessOfTheseText}>Buy Less of These</Text>
-						<Text
-							style={styles.textThreeText}>10%</Text>
-						<Text
-							style={styles.textTwoText}>10%</Text>
-						<Text
-							style={styles.textFourText}>70%</Text>
-						<Text
-							style={styles.textFiveText}>10%</Text>
-						<View
-							style={{
-								flex: 1,
-							}}/>
-						<Text
-							style={styles.captionText}>Fish</Text>
-						<Text
-							style={styles.captionThreeText}>Milk</Text>
-					</View>
-				</View>
-				<Text
-					style={styles.insightsText}>GreenHouse</Text>
-			</View>
+		// return <View
+		// 		style={styles.homePageView}>
+		// 		<View
+		// 			pointerEvents="box-none"
+		// 			style={{
+		// 				position: "absolute",
+		// 				left: 0,
+		// 				right: 0,
+		// 				top: 0,
+		// 				bottom: -1,
+		// 			}}>
+		// 			<View
+		// 				pointerEvents="box-none"
+		// 				style={{
+		// 					position: "absolute",
+		// 					left: 0,
+		// 					right: 0,
+		// 					top: 0,
+		// 					bottom: 0,
+		// 					justifyContent: "center",
+		// 				}}>
+		// 				<Image
+		// 					source={require("./../../assets/images/home-page-background-mask.png")}
+		// 					style={styles.homePageBackgroundMaskImage}/>
+		// 			</View>
+		// 			<View
+		// 				pointerEvents="box-none"
+		// 				style={{
+		// 					position: "absolute",
+		// 					left: 16,
+		// 					right: 71,
+		// 					top: 68,
+		// 					bottom: 108,
+		// 					alignItems: "flex-start",
+		// 				}}>
+		// 				<Text
+		// 					style={styles.backText}></Text>
+		// 				<View
+		// 					pointerEvents="box-none"
+		// 					style={{
+		// 						alignSelf: "stretch",
+		// 						height: 27,
+		// 						marginLeft: 53,
+		// 						marginTop: 49,
+		// 						flexDirection: "row",
+		// 						alignItems: "flex-start",
+		// 					}}>
+		// 					<Text
+		// 						style={styles.body1Text}>Food Waste</Text>
+		// 					<View
+		// 						style={{
+		// 							flex: 1,
+		// 						}}/>
+		// 					<Text
+		// 						style={styles.body1TwoText}>in lbs</Text>
+		// 				</View>
+		// 				<Text
+		// 					style={styles.body2Text}>June-July</Text>
+		// 				<Text
+		// 					style={styles.textText}>70%</Text>
+		// 				<Text
+		// 					style={styles.spentText}>70% spent</Text>
+		// 				<Text
+		// 					style={styles.body1ThreeText}>Food Waste by Item</Text>
+		// 				<Text
+		// 					style={styles.buyLessOfTheseText}>Buy Less of These</Text>
+		// 				<Text
+		// 					style={styles.textThreeText}>10%</Text>
+		// 				<Text
+		// 					style={styles.textTwoText}>10%</Text>
+		// 				<Text
+		// 					style={styles.textFourText}>70%</Text>
+		// 				<Text
+		// 					style={styles.textFiveText}>10%</Text>
+		// 				<View
+		// 					style={{
+		// 						flex: 1,
+		// 					}}/>
+		// 				<Text
+		// 					style={styles.captionText}>Fish</Text>
+		// 				<Text
+		// 					style={styles.captionThreeText}>Milk</Text>
+		// 			</View>
+		// 		</View>
+		// 		<Text
+		// 			style={styles.insightsText}>GreenHouse</Text>
+		// 	</View>
 	}
 }
 

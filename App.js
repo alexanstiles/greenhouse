@@ -16,27 +16,32 @@ import SearchForFoodItem from "./App/SearchForFoodItem/SearchForFoodItem"
 import ShoppingList from "./App/ShoppingList/ShoppingList"
 import ShoppingListTwo from "./App/ShoppingListTwo/ShoppingListTwo"
 import { AppLoading, DangerZone } from "expo"
-import { createAppContainer, createStackNavigator } from "react-navigation"
+import { createAppContainer, createStackNavigator, StackRouter } from "@react-navigation/stack"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { NavigationContainer } from "@react-navigation/native"
+import { AntDesign } from '@expo/vector-icons'
+import {Ionicons} from '@expo/vector-icons'
+// const PushRouteOne = createBottomTabNavigator({
+// 	HomePage: {
+// 		screen: HomePage,
+// 	},
+// }, {
+// 	initialRouteName: "HomePage",
+// })
 
-const PushRouteOne = createStackNavigator({
-	ShoppingList: {
-		screen: ShoppingList,
-	},
-}, {
-	initialRouteName: "ShoppingList",
-})
+// const RootNavigator = createStackNavigator({
+// 	PushRouteOne: {
+// 		screen: PushRouteOne,
+// 	},
+// }, {
+// 	mode: "modal",
+// 	headerMode: "none",
+// 	initialRouteName: "PushRouteOne",
+// })
 
-const RootNavigator = createStackNavigator({
-	PushRouteOne: {
-		screen: PushRouteOne,
-	},
-}, {
-	mode: "modal",
-	headerMode: "none",
-	initialRouteName: "PushRouteOne",
-})
+const rootStack = createBottomTabNavigator()
 
-const AppContainer = createAppContainer(RootNavigator)
+// const AppContainer = createAppContainer(RootNavigator)
 
 
 
@@ -47,7 +52,7 @@ export default class App extends React.Component {
 		this.state = {
 			fontsReady: false,
 		}
-	}
+	} 
 
 	componentDidMount() {
 	
@@ -67,8 +72,32 @@ export default class App extends React.Component {
 	}
 
 	render() {
-	
-		// if (!this.state.fontsReady) { return (<AppLoading />); }
-		return <AppContainer/>
+		return (
+			<NavigationContainer>
+				<rootStack.Navigator
+					screenOptions={({route}) => ({
+						tabBarIcon: ({ focused, color, size }) => {
+							let iconName
+							if (route.name === "Home") {
+								iconName = "home"
+							}
+							else if (route.name === "Shopping List") {
+								iconName = "shoppingcart"
+							}
+							else if (route.name === "My Lists") {
+								return <Ionicons name="list" size={size} color={color} />
+							}
+							return <AntDesign name={iconName} size={size} color={color} />
+						},
+						"tabBarActiveTintColor": "green",
+					})}
+					initialRouteName="Home">
+					<rootStack.Screen name="Home" component={HomePage} />
+					<rootStack.Screen name="My Lists" component={MyLists} />
+					<rootStack.Screen name="Shopping List"component={ShoppingListTwo} />
+				</rootStack.Navigator>
+			</NavigationContainer>
+		);
+		
 	}
 }
