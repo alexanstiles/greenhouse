@@ -1,0 +1,1 @@
+'expo start' to start development server

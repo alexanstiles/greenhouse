@@ -95,6 +95,8 @@ export default class App extends React.Component {
 					<rootStack.Screen name="Home" component={HomePage} />
 					<rootStack.Screen name="My Lists" component={MyLists} />
 					<rootStack.Screen name="Shopping List"component={ShoppingListTwo} />
+					<rootStack.Screen name="Search Item"component={SearchForFoodItem} />
+					<rootStack.Screen name="Manage List"component={ShoppingList} />
 				</rootStack.Navigator>
 			</NavigationContainer>
 		);

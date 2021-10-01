@@ -6,200 +6,82 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React from "react"
-import { Image, StyleSheet, Text, View } from "react-native"
+import React from "react";
+import { Image, StyleSheet, Text, View } from "react-native";
 
+export default function ShoppingList({ data }) {
+  const navigationOptions = ({ navigation }) => {
+    const { params = {} } = navigation.state;
+    return {
+      header: null,
+      headerLeft: null,
+      headerRight: null,
+    };
+  };
 
-export default class ShoppingList extends React.Component {
+  // replace this with real data later!
+  const shoppingData = [
+    { itemName: "Eggs (2 Dozen" },
+    { itemName: "Whole Wheat Bread (2 Loaves)" },
+    { itemName: "Milk (1 Gallon)" },
+    { itemName: "Kiwis" },
+    { itemName: "Bananas" },
+    { itemName: "Apples" },
+  ];
 
-	static navigationOptions = ({ navigation }) => {
-	
-		const { params = {} } = navigation.state
-		return {
-				header: null,
-				headerLeft: null,
-				headerRight: null,
-			}
-	}
-
-	constructor(props) {
-		super(props)
-	}
-
-	componentDidMount() {
-	
-	}
-
-	render() {
-	
-		return <View
-				style={styles.shoppingListView}>
-				<View
-					pointerEvents="box-none"
-					style={{
-						position: "absolute",
-						left: 0,
-						right: 0,
-						top: 0,
-						height: 815,
-					}}>
-					<View
-						pointerEvents="box-none"
-						style={{
-							position: "absolute",
-							left: 0,
-							right: 0,
-							top: 0,
-							bottom: 0,
-							justifyContent: "center",
-						}}>
-						<Image
-							source={require("./../../assets/images/shopping-list-background-mask-2.png")}
-							style={styles.shoppingListBackgroundMaskImage}/>
-					</View>
-					<View
-						pointerEvents="box-none"
-						style={{
-							position: "absolute",
-							left: 15,
-							right: 15,
-							top: 68,
-							height: 333,
-							alignItems: "flex-start",
-						}}>
-						<View
-							pointerEvents="box-none"
-							style={{
-								alignSelf: "stretch",
-								height: 18,
-								marginLeft: 1,
-								flexDirection: "row",
-								alignItems: "flex-start",
-							}}>
-							<Text
-								style={styles.backText}>Back</Text>
-							<View
-								style={{
-									flex: 1,
-								}}/>
-							<Text
-								style={styles.nextText}></Text>
-						</View>
-						<Text
-							style={styles.radioOptionHereText}>Eggs (2 Dozen)</Text>
-						<Text
-							style={styles.radioOptionHereTwoText}>Whole Wheat Bread (2 Loaves)</Text>
-						<Text
-							style={styles.radioOptionHereThreeText}>Milk (1 Gallon)</Text>
-						<Text
-							style={styles.radioOptionHereFourText}>Kiwis</Text>
-						<Text
-							style={styles.radioOptionHereFiveText}>Bananas</Text>
-						<Text
-							style={styles.radioOptionHereSixText}>Apples</Text>
-					</View>
-				</View>
-				<Text
-					style={styles.userOptionsText}>List 1</Text>
-			</View>
-	}
+  return (
+    <View style={styles.shoppingListView}>
+      {shoppingData.map((shoppingItem) => {
+        return (
+          <View key={shoppingItem.itemName} style={styles.listRow}>
+            <View style={styles.flexbox}>
+              <Text>{shoppingItem.itemName}</Text>
+              <View style={[styles.flexbox, styles.alignRight]}>
+                <Image
+                  source={require("./../../assets/images/trash.png")}
+                  style={styles.trashIcon}
+                />
+                <Image
+                  source={require("./../../assets/images/silverware.png")}
+                  style={styles.silverwareIcon}
+                />
+              </View>
+            </View>
+            <View style={styles.hr}></View>
+          </View>
+        );
+      })}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-	shoppingListView: {
-		backgroundColor: "white",
-		flex: 1,
-	},
-	shoppingListBackgroundMaskImage: {
-		backgroundColor: "transparent",
-		resizeMode: "cover",
-		width: null,
-		height: 815,
-	},
-	backText: {
-		color: "rgb(93, 176, 117)",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-	},
-	nextText: {
-		color: "rgb(93, 176, 117)",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "right",
-		backgroundColor: "transparent",
-	},
-	radioOptionHereText: {
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		marginLeft: 1,
-		marginTop: 57,
-	},
-	radioOptionHereTwoText: {
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		marginLeft: 1,
-		marginTop: 31,
-	},
-	radioOptionHereThreeText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		marginTop: 32,
-	},
-	radioOptionHereFourText: {
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		marginLeft: 1,
-		marginTop: 28,
-	},
-	radioOptionHereFiveText: {
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		marginLeft: 1,
-		marginTop: 30,
-	},
-	radioOptionHereSixText: {
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		marginLeft: 1,
-		marginTop: 29,
-	},
-	userOptionsText: {
-		color: "black",
-		fontSize: 30,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "center",
-		backgroundColor: "transparent",
-		position: "absolute",
-		alignSelf: "center",
-		top: 60,
-	},
-})
+  listRow: {
+    padding: "0px",
+  },
+  hr: {
+    borderBottomColor: "#E8E8E8",
+    borderBottomWidth: 1,
+    marginTop: "30px",
+    marginBottom: "30px",
+  },
+  shoppingListView: {
+    padding: "20px",
+  },
+  trashIcon: {
+    height: 50,
+    width: 44,
+  },
+  silverwareIcon: {
+    height: 34,
+    width: 24,
+  },
+  flexbox: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  alignRight: {
+	  marginLeft: 'auto',
+  }
+});
