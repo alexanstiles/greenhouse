@@ -14,13 +14,16 @@ import PopUpToAddItem from "./App/PopUpToAddItem/PopUpToAddItem"
 import React from "react"
 import SearchForFoodItem from "./App/SearchForFoodItem/SearchForFoodItem"
 import ShoppingList from "./App/ShoppingList/ShoppingList"
-import ShoppingListTwo from "./App/ShoppingListTwo/ShoppingListTwo"
+import CreateShoppingList from "./App/CreateShoppingList/CreateShoppingList"
 import { AppLoading, DangerZone } from "expo"
 import { createAppContainer, createStackNavigator, StackRouter } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer } from "@react-navigation/native"
 import { AntDesign } from '@expo/vector-icons'
 import {Ionicons} from '@expo/vector-icons'
+
+import EStyleSheet from 'react-native-extended-stylesheet';
+
 // const PushRouteOne = createBottomTabNavigator({
 // 	HomePage: {
 // 		screen: HomePage,
@@ -40,6 +43,8 @@ import {Ionicons} from '@expo/vector-icons'
 // })
 
 const rootStack = createBottomTabNavigator()
+
+EStyleSheet.build() // Should be executed in App.js so that the EStyleSheet library functions properly
 
 // const AppContainer = createAppContainer(RootNavigator)
 
@@ -94,7 +99,7 @@ export default class App extends React.Component {
 					initialRouteName="Home">
 					<rootStack.Screen name="Home" component={HomePage} />
 					<rootStack.Screen name="My Lists" component={MyLists} />
-					<rootStack.Screen name="Shopping List"component={ShoppingListTwo} />
+					<rootStack.Screen name="Create new list"component={CreateShoppingList} />
 					<rootStack.Screen name="Search Item"component={SearchForFoodItem} />
 					<rootStack.Screen name="Manage List"component={ShoppingList} />
 				</rootStack.Navigator>
