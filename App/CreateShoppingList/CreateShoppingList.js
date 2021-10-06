@@ -10,8 +10,16 @@ import React from "react"
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+/* 
+TODO: Fix TextInput error when opening this page on Android:
 
-export default function CreateShoppingList({ data }) {
+Invariant Violation: "outlineWidth" is not a valid style property.
+StyleSheet textInputAddItem: {
+  "outlineWidth": 0
+}
+
+*/
+export default function CreateShoppingList(props) {
 
 	const styles = EStyleSheet.create({
 		// TODO: Change the font used
@@ -38,13 +46,23 @@ export default function CreateShoppingList({ data }) {
 		itemTitle: {
 		},
 		deleteButton: {
-			marginLeft: 'auto',
-			marginRight: '1rem'
+			position: 'absolute',
+			right: '1rem',
+
+			padding: '1rem',
+			alignSelf:'center'
 		},
 		deleteButtonText: {
+			textAlignVertical: 'center',
 		},
 		textInputAddItem: {
-			outlineWidth: 0,
+			borderWidth: 3,
+			borderColor: 'lightgray',
+			borderRadius: 100,
+			marginVertical: '1rem',
+			marginHorizontal: '1.5rem',
+			paddingVertical: '1rem',
+			paddingHorizontal: '1rem'
 		},
 		buttonFinished: {
 			backgroundColor: 'green',
@@ -54,7 +72,8 @@ export default function CreateShoppingList({ data }) {
 
 			paddingVertical: '1rem',
 			marginVertical: '1rem',
-			marginHorizontal: '1.5rem'
+			marginHorizontal: '1.5rem',
+
 		},
 		buttonFinishedText: {
 			color: 'white',
@@ -93,21 +112,19 @@ export default function CreateShoppingList({ data }) {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Create List</Text>
+			<View>
+				<TouchableOpacity onPress={() => props.navigation.navigate('Profile', { name: 'Jane' })}>
+					<TextInput
+						style={styles.textInputAddItem}
+						placeholder="Search for an item"
+					/>
+				</TouchableOpacity>
+			</View>
 			<FlatList
 				data={shoppingData}
 				renderItem={renderItem}
-				ListFooterComponent={() => {
-					return (
-						<View>
-							<TextInput
-								style={[styles.item, styles.textInputAddItem]}
-								placeholder="Enter another item"
-							/>
-						</View>
-					)
-				}}
 			/>
-			<TouchableOpacity style={styles.buttonFinished}>
+			<TouchableOpacity style={styles.buttonFinished} title="Finish List">
 				<Text style={styles.buttonFinishedText}>Finish List</Text>
 			</TouchableOpacity>
 		</View>
