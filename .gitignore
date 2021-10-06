@@ -136,3 +136,6 @@ docs/pages/versions/*/react-native/*.diff
 
 # Pods
 /ios/Pods
+
+# VSCode workspace
+greenhouse.code-workspace
