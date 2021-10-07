@@ -49,7 +49,7 @@ export default function ShoppingList({ data }) {
             </View>
             <View style={styles.hr}></View>
           </View>
-        );
+        )
       })}
     </View>
   );
@@ -57,16 +57,16 @@ export default function ShoppingList({ data }) {
 
 const styles = StyleSheet.create({
   listRow: {
-    padding: "0px",
+    padding: 0,
   },
   hr: {
     borderBottomColor: "#E8E8E8",
     borderBottomWidth: 1,
-    marginTop: "30px",
-    marginBottom: "30px",
+    marginTop: 30,
+    marginBottom: 30,
   },
   shoppingListView: {
-    padding: "20px",
+    padding: 20,
   },
   trashIcon: {
     height: 50,
