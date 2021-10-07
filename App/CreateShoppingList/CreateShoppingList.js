@@ -48,7 +48,7 @@ export default function CreateShoppingList(props) {
 		},
 		deleteButton: {
 			position: 'absolute',
-			right: '1rem',
+			right: '0rem',
 
 			padding: '1rem',
 			alignSelf:'center'
