@@ -80,6 +80,12 @@ export default function SearchForFoodItem(props) {
 		// Bind search results to ItemViews, update on text change
 	}
 
+	const textInputSearchRef = useRef(null)
+
+	useEffect(() => {
+		setTimeout(() => textInputSearchRef.current.focus(), 100)
+	}, []);
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Create List</Text>
@@ -87,7 +93,7 @@ export default function SearchForFoodItem(props) {
 				<TextInput
 					style={styles.textInputSearch}
 					placeholder="Search for an item"
-					
+					ref={textInputSearchRef}
 				/>
 			</View>
 			<FlatList
