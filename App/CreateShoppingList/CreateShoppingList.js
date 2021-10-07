@@ -113,7 +113,7 @@ export default function CreateShoppingList(props) {
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Create List</Text>
 			<View>
-				<TouchableOpacity onPress={() => props.navigation.navigate('Profile', { name: 'Jane' })}>
+				<TouchableOpacity>
 					<TextInput
 						style={styles.textInputAddItem}
 						placeholder="Search for an item"
