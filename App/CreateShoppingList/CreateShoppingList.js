@@ -7,7 +7,7 @@
 //
 
 import React from "react"
-import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from "react-native"
+import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useNavigation } from "@react-navigation/native";
 
@@ -51,12 +51,13 @@ export default function CreateShoppingList(props) {
 			right: '0rem',
 
 			padding: '1rem',
-			alignSelf:'center'
+			alignSelf: 'center'
 		},
 		deleteButtonText: {
 			textAlignVertical: 'center',
 		},
 		textInputAddItem: {
+			color: 'gray',
 			borderWidth: 3,
 			borderColor: 'lightgray',
 			borderRadius: 100,
@@ -116,11 +117,11 @@ export default function CreateShoppingList(props) {
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Create List</Text>
 			<View>
-				<TouchableOpacity onPress={() => navigation.navigate('Search Item')}>
-					<TextInput
-						style={styles.textInputAddItem}
-						placeholder="Search for an item"
-					/>
+				<TouchableOpacity onPress={() => {
+					navigation.navigate('Search Item')
+				}
+				}>
+					<Text style={styles.textInputAddItem}>Search for an item</Text>
 				</TouchableOpacity>
 			</View>
 			<FlatList
