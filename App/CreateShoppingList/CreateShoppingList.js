@@ -116,14 +116,6 @@ export default function CreateShoppingList(props) {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Create List</Text>
-			<View>
-				<TouchableOpacity onPress={() => {
-					navigation.navigate('Search Item')
-				}
-				}>
-					<Text style={styles.textInputAddItem}>Search for an item</Text>
-				</TouchableOpacity>
-			</View>
 			<FlatList
 				data={shoppingData}
 				renderItem={renderItem}
