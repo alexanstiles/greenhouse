@@ -116,7 +116,7 @@ export default function CreateShoppingList(props) {
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Create List</Text>
 			<View>
-				<TouchableOpacity>
+				<TouchableOpacity onPress={() => navigation.navigate('Search Item')}>
 					<TextInput
 						style={styles.textInputAddItem}
 						placeholder="Search for an item"
