@@ -9,6 +9,7 @@
 import React from "react"
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { useNavigation } from "@react-navigation/native";
 
 /* 
 TODO: Fix TextInput error when opening this page on Android:
@@ -109,6 +110,8 @@ export default function CreateShoppingList(props) {
 		)
 	}
 
+	const navigation = useNavigation(); // useNavigation hook
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Create List</Text>
@@ -124,7 +127,7 @@ export default function CreateShoppingList(props) {
 				data={shoppingData}
 				renderItem={renderItem}
 			/>
-			<TouchableOpacity style={styles.buttonFinished} title="Finish List" onPress={() => alert('Hello, world!')}>
+			<TouchableOpacity style={styles.buttonFinished} title="Finish List" onPress={() => navigation.navigate('Search Item')}>
 				<Text style={styles.buttonFinishedText}>Open Search Page</Text>
 			</TouchableOpacity>
 			<TouchableOpacity style={styles.buttonFinished} title="Finish List" onPress={() => alert('Hello, world!')}>
