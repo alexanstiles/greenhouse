@@ -6,7 +6,7 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React, {useRef, useEffect} from "react"
+import React, { useRef, useEffect } from "react"
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -29,7 +29,6 @@ export default function SearchForFoodItem(props) {
 			flex: 1,
 			flexDirection: 'row',
 			justifyContent: 'flex-start',
-			paddingVertical: '1rem',
 
 			borderBottomWidth: 1,
 			borderBottomColor: 'lightgray',
@@ -48,6 +47,10 @@ export default function SearchForFoodItem(props) {
 			textAlign: 'center',
 			fontWeight: 'bold'
 		},
+		buttonItem: {
+			width: '100%',
+			padding: '1rem'
+		}
 	})
 
 	const searchResults = [
@@ -60,8 +63,8 @@ export default function SearchForFoodItem(props) {
 	const ItemView = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<Text style={styles.itemTitle}>{item.itemName}</ Text>
-				<TouchableOpacity style={styles.deleteButton} onPress={() => alert('Hello, world!')}>
+				<TouchableOpacity style={styles.buttonItem} onPress={() => alert('Hello, world!')}>
+					<Text style={styles.itemTitle}>{item.itemName}</ Text>
 				</TouchableOpacity>
 			</View>
 		)
@@ -73,7 +76,7 @@ export default function SearchForFoodItem(props) {
 		)
 	}
 
-	const handleTextChange = ({target}) => {
+	const handleTextChange = ({ target }) => {
 		// Retrieve search results
 		// Set search results
 
