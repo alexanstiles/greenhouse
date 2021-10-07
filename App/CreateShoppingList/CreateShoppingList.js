@@ -46,15 +46,15 @@ export default function CreateShoppingList(props) {
 		},
 		itemTitle: {
 		},
-		deleteButton: {
+		buttonDelete: {
 			position: 'absolute',
 			right: '0rem',
 
-			padding: '1rem',
-			alignSelf: 'center'
+			padding: '0.5rem',
+			alignSelf: 'center',
+			alignItems: 'center'
 		},
-		deleteButtonText: {
-			textAlignVertical: 'center',
+		buttonDeleteText: {
 		},
 		textInputAddItem: {
 			color: 'gray',
@@ -98,8 +98,8 @@ export default function CreateShoppingList(props) {
 		return (
 			<View style={styles.item}>
 				<Text style={styles.itemTitle}>{item.itemName}</ Text>
-				<TouchableOpacity style={styles.deleteButton} onPress={() => alert('Hello, world!')}>
-					<Text style={styles.deleteButtonText}>X</Text>
+				<TouchableOpacity style={styles.buttonDelete} onPress={() => alert('Hello, world!')}>
+					<Text style={styles.buttonDeleteText}>X</Text>
 				</TouchableOpacity>
 			</View>
 		)
@@ -121,7 +121,13 @@ export default function CreateShoppingList(props) {
 				renderItem={renderItem}
 			/>
 			<TouchableOpacity style={styles.buttonFinished}>
-				<Text style={styles.buttonFinishedText}>Open Search Page</Text>
+				<Text
+					style={styles.buttonFinishedText}
+					onPress={() => {
+						navigation.navigate('Search Item')
+					}}>
+					Open Search Page
+				</Text>
 			</TouchableOpacity>
 			<TouchableOpacity style={styles.buttonFinished} onPress={() => alert('Hello, world!')}>
 				<Text style={styles.buttonFinishedText}>Finish List</Text>
