@@ -6,15 +6,16 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React from "react"
-import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from "react-native"
+import React, {useRef, useEffect} from "react"
+import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 
 
 export default function SearchForFoodItem(props) {
 
-	const [text, setText] = React.useState("Useless Text");
+	const [text, setText] = React.useState("Useless Text")
+
 	// const [searchResults, setSearchResults] = React.useState([])
 
 	const styles = EStyleSheet.create({
@@ -33,7 +34,7 @@ export default function SearchForFoodItem(props) {
 			borderBottomWidth: 1,
 			borderBottomColor: 'lightgray',
 		},
-		textInputAddItem: {
+		textInputSearch: {
 			borderWidth: 3,
 			borderColor: 'lightgray',
 			borderRadius: 100,
@@ -50,12 +51,10 @@ export default function SearchForFoodItem(props) {
 	})
 
 	const searchResults = [
-		{ itemName: "Eggs (2 Dozen)" },
-		{ itemName: "Whole Wheat Bread (2 Loaves)" },
-		{ itemName: "Milk (1 Gallon)" },
-		{ itemName: "Kiwis" },
 		{ itemName: "Bananas" },
-		{ itemName: "Apples" },
+		{ itemName: "Bananas (1 dozen)" },
+		{ itemName: "Banana mashed" },
+		{ itemName: "Banana sliced" },
 	];
 
 	const ItemView = ({ item }) => {
@@ -86,7 +85,7 @@ export default function SearchForFoodItem(props) {
 			<Text style={styles.pageTitle}>Create List</Text>
 			<View>
 				<TextInput
-					style={styles.textInputAddItem}
+					style={styles.textInputSearch}
 					placeholder="Search for an item"
 					
 				/>
