@@ -12,7 +12,8 @@ import MyLists from "./App/MyLists/MyLists"
 import MyListsTwo from "./App/MyListsTwo/MyListsTwo"
 import PopUpToAddItem from "./App/PopUpToAddItem/PopUpToAddItem"
 import React from "react"
-import SearchForFoodItem from "./App/SearchForFoodItem/SearchForFoodItem"
+// import SearchForFoodItem from "./App/SearchForFoodItem/SearchForFoodItem"
+import {SearchItemNavigator} from './CustomNavigation'
 import ShoppingList from "./App/ShoppingList/ShoppingList"
 import CreateShoppingList from "./App/CreateShoppingList/CreateShoppingList"
 import { AppLoading, DangerZone } from "expo"
@@ -99,8 +100,7 @@ export default class App extends React.Component {
 					initialRouteName="Home">
 					<rootStack.Screen name="Home" component={HomePage} />
 					<rootStack.Screen name="My Lists" component={MyLists} />
-					<rootStack.Screen name="Create new list"component={CreateShoppingList} />
-					<rootStack.Screen name="Search Item"component={SearchForFoodItem} />
+					<rootStack.Screen name="Create new list" component={SearchItemNavigator} options={{ headerShown: false }} /> 
 					<rootStack.Screen name="Manage List"component={ShoppingList} />
 				</rootStack.Navigator>
 			</NavigationContainer>
