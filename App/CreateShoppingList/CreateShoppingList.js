@@ -125,6 +125,9 @@ export default function CreateShoppingList(props) {
 				renderItem={renderItem}
 			/>
 			<TouchableOpacity style={styles.buttonFinished} title="Finish List">
+				<Text style={styles.buttonFinishedText}>Open Search Page</Text>
+			</TouchableOpacity>
+			<TouchableOpacity style={styles.buttonFinished} title="Finish List" onPress={() => alert('Hello, world!')}>
 				<Text style={styles.buttonFinishedText}>Finish List</Text>
 			</TouchableOpacity>
 		</View>
