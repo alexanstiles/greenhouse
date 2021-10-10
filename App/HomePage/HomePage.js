@@ -9,9 +9,9 @@
 import React from "react"
 import { Image, StyleSheet, Text, View, Dimensions, ScrollView , StatusBar, } from "react-native"
 import {
-	LineChart,
+	LineChart, PieChart
 } from "react-native-chart-kit";
-import PieChart from 'react-native-pie-chart';
+// import PieChart from 'react-native-pie-chart';
 import Pie from "react-native-pie";
 
   
@@ -32,6 +32,12 @@ import Pie from "react-native-pie";
 
 	constructor(props) {
 		super(props)
+		this.state = {
+			data1: 10,
+			data2: 20,
+			data3: 30,
+			data4: 40
+			};
 	}
 
 	componentDidMount() {
@@ -51,6 +57,49 @@ import Pie from "react-native-pie";
 	
 
 	  render() {
+		  
+		// Example Pie Chart data
+		  const screenWidth = Dimensions.get("window").width;
+		  const pieData = [
+			{
+			name: "Milk",
+			value: this.state.data1,
+			color: "#855CF8",
+			legendFontColor: "#181818",
+			legendFontSize: 15
+			},
+			{
+			name: "Steak",
+			value: this.state.data2,
+			color: "#E289F2",
+			legendFontColor: "#181818",
+			legendFontSize: 15
+			},
+			{
+			name: "Bananas",
+			value: this.state.data3,
+			color: "#503795",
+			legendFontColor: "#181818",
+			legendFontSize: 15
+			},
+			{
+			name: "Butter",
+			value: this.state.data4,
+			color: "#B085FF",
+			legendFontColor: "#181818",
+			legendFontSize: 15
+			}
+			];
+			const chartConfig = {
+			backgroundGradientFrom: "#1E2923",
+			backgroundGradientFromOpacity: 0,
+			backgroundGradientTo: "#08130D",
+			backgroundGradientToOpacity: 0.5,
+			color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+			strokeWidth: 2, // optional, default 3
+			barPercentage: 0.5
+		  };
+		  
 		  return (
 			  <View style={styles.container}>
 				  <Text style={styles.HomeText}>GreenHouse</Text>
@@ -99,21 +148,20 @@ import Pie from "react-native-pie";
 					  }}
 				  />
 				  
-	<ScrollView style={{flex: 1}}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Food Waste by Item</Text>
-          <PieChart
-            widthAndHeight = {250}
-            series={[70,10,10,10]}
-            sliceColor={['#855CF8', '#E289F2', '#503795', '#B085FF']}
-            doughnut={true}
-            coverRadius={0.45}
-            coverFill={'#FFF'}
-          />
-        </View>
-      </ScrollView>  
-				  
-			  </View>
+			<View style={{flex:1, justifyContent:'space-evenly', alignItems: 'center',  }}>
+				<Text style={{ fontSize:30 }}>Food Waste by Item</Text>
+					<PieChart
+					data={pieData}
+					width={screenWidth}
+					height={220}
+					chartConfig={chartConfig}
+					accessor="value"
+					backgroundColor="transparent"
+					paddingLeft="20"
+					
+					/>
+			</View>	  
+		 </View>
 		  );
 	  }
 	}
