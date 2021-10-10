@@ -16,7 +16,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.greenhousedesigns.greenhouse",
+      "buildNumber": "0.0.1"
+    },
+    "android": {
+      "package": "com.greenhousedesigns.greenhouse",
+      "versionCode": 1
     }
   }
 }
