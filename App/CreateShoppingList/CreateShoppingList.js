@@ -6,7 +6,7 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React from "react"
+import React, { useState } from "react"
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useNavigation } from "@react-navigation/native";
@@ -84,21 +84,30 @@ export default function CreateShoppingList(props) {
 		}
 	});
 
-	const shoppingData = [
-		{ itemName: "Eggs (2 Dozen)" },
-		{ itemName: "Whole Wheat Bread (2 Loaves)" },
-		{ itemName: "Milk (1 Gallon)" },
-		{ itemName: "Kiwis" },
-		{ itemName: "Bananas" },
-		{ itemName: "Apples" },
+	// TODO: Items in the array should all have an ID property assigned to them. Refactor the deleteItem() as needed.
+	const startingItems = [
+		{ name: "Eggs (2 Dozen)" },
+		{ name: "Whole Wheat Bread (2 Loaves)" },
+		{ name: "Milk (1 Gallon)" },
+		{ name: "Kiwis" },
+		{ name: "Bananas" },
+		{ name: "Apples" },
 	];
-	console.log(shoppingData)
+
+	const [items, setItems] = useState([...startingItems])
+	console.log(items)
+
+	const deleteItem = (name) => {
+		const i = items.findIndex((item) => item.name === name);
+		items.splice(i, 1);
+		setItems([...items]);
+	}
 
 	const ItemView = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<Text style={styles.itemTitle}>{item.itemName}</ Text>
-				<TouchableOpacity style={styles.buttonDelete} onPress={() => alert('Hello, world!')}>
+				<Text style={styles.itemTitle}>{item.name}</ Text>
+				<TouchableOpacity style={styles.buttonDelete} onPress={() => deleteItem(item.name)}>
 					<Text style={styles.buttonDeleteText}>X</Text>
 				</TouchableOpacity>
 			</View>
@@ -117,7 +126,7 @@ export default function CreateShoppingList(props) {
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Create List</Text>
 			<FlatList
-				data={shoppingData}
+				data={items}
 				renderItem={renderItem}
 			/>
 			<TouchableOpacity style={styles.buttonFinished}>
@@ -129,7 +138,7 @@ export default function CreateShoppingList(props) {
 					Open Search Page
 				</Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={styles.buttonFinished} onPress={() => alert('Hello, world!')}>
+			<TouchableOpacity style={styles.buttonFinished} onPress={() => alert('Feature not yet available')}>
 				<Text style={styles.buttonFinishedText}>Finish List</Text>
 			</TouchableOpacity>
 		</View>

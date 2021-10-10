@@ -90,7 +90,7 @@ export default function SearchForFoodItem(props) {
 				<View style={styles.containerImageItem}>
 					<Image style={styles.imageItem} source={item.image}></Image>
 				</View>
-				<TouchableOpacity style={styles.buttonSelect} onPress={() => alert('Hello, world!')}>
+				<TouchableOpacity style={styles.buttonSelect} onPress={() => alert('Feature not yet available')}>
 					<Text style={styles.buttonSelectText}>Select</Text>
 				</TouchableOpacity>
 			</View>
