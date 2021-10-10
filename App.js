@@ -98,7 +98,7 @@ export default class App extends React.Component {
 						"tabBarActiveTintColor": "green",
 					})}
 					initialRouteName="Home">
-					<rootStack.Screen name="Home" component={HomePage} />
+					<rootStack.Screen name="Home" component={HomePage}  options={{ headerShown: false }}  />
 					<rootStack.Screen name="My Lists" component={MyLists} />
 					<rootStack.Screen name="Create new list" component={SearchItemNavigator} options={{ headerShown: false }} /> 
 					<rootStack.Screen name="Manage List"component={ShoppingList} />

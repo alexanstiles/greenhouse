@@ -7,11 +7,18 @@
 //
 
 import React from "react"
-import { Image, StyleSheet, Text, View } from "react-native"
+import { Image, StyleSheet, Text, View, Dimensions, ScrollView , StatusBar, } from "react-native"
+import {
+	LineChart,
+} from "react-native-chart-kit";
+import PieChart from 'react-native-pie-chart';
+import Pie from "react-native-pie";
+
+  
 
 
 
-export default class HomePage extends React.Component {
+  export default class HomePage extends React.Component {
 
 	static navigationOptions = ({ navigation }) => {
 	
@@ -31,276 +38,110 @@ export default class HomePage extends React.Component {
 	
 	}
 
-	render() {
-		return (
-			<Text>This is the HomePage</Text>
-		);
+	// Example line chart for home screen
+	 line = {
+		labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+		datasets: [
+			{
+				data: [20, 45, 28, 80, 99, 43],
+				strokeWidth: 2, // optional
+			},
+		],
+	};
 	
-		// return <View
-		// 		style={styles.homePageView}>
-		// 		<View
-		// 			pointerEvents="box-none"
-		// 			style={{
-		// 				position: "absolute",
-		// 				left: 0,
-		// 				right: 0,
-		// 				top: 0,
-		// 				bottom: -1,
-		// 			}}>
-		// 			<View
-		// 				pointerEvents="box-none"
-		// 				style={{
-		// 					position: "absolute",
-		// 					left: 0,
-		// 					right: 0,
-		// 					top: 0,
-		// 					bottom: 0,
-		// 					justifyContent: "center",
-		// 				}}>
-		// 				<Image
-		// 					source={require("./../../assets/images/home-page-background-mask.png")}
-		// 					style={styles.homePageBackgroundMaskImage}/>
-		// 			</View>
-		// 			<View
-		// 				pointerEvents="box-none"
-		// 				style={{
-		// 					position: "absolute",
-		// 					left: 16,
-		// 					right: 71,
-		// 					top: 68,
-		// 					bottom: 108,
-		// 					alignItems: "flex-start",
-		// 				}}>
-		// 				<Text
-		// 					style={styles.backText}></Text>
-		// 				<View
-		// 					pointerEvents="box-none"
-		// 					style={{
-		// 						alignSelf: "stretch",
-		// 						height: 27,
-		// 						marginLeft: 53,
-		// 						marginTop: 49,
-		// 						flexDirection: "row",
-		// 						alignItems: "flex-start",
-		// 					}}>
-		// 					<Text
-		// 						style={styles.body1Text}>Food Waste</Text>
-		// 					<View
-		// 						style={{
-		// 							flex: 1,
-		// 						}}/>
-		// 					<Text
-		// 						style={styles.body1TwoText}>in lbs</Text>
-		// 				</View>
-		// 				<Text
-		// 					style={styles.body2Text}>June-July</Text>
-		// 				<Text
-		// 					style={styles.textText}>70%</Text>
-		// 				<Text
-		// 					style={styles.spentText}>70% spent</Text>
-		// 				<Text
-		// 					style={styles.body1ThreeText}>Food Waste by Item</Text>
-		// 				<Text
-		// 					style={styles.buyLessOfTheseText}>Buy Less of These</Text>
-		// 				<Text
-		// 					style={styles.textThreeText}>10%</Text>
-		// 				<Text
-		// 					style={styles.textTwoText}>10%</Text>
-		// 				<Text
-		// 					style={styles.textFourText}>70%</Text>
-		// 				<Text
-		// 					style={styles.textFiveText}>10%</Text>
-		// 				<View
-		// 					style={{
-		// 						flex: 1,
-		// 					}}/>
-		// 				<Text
-		// 					style={styles.captionText}>Fish</Text>
-		// 				<Text
-		// 					style={styles.captionThreeText}>Milk</Text>
-		// 			</View>
-		// 		</View>
-		// 		<Text
-		// 			style={styles.insightsText}>GreenHouse</Text>
-		// 	</View>
+	// Example Pie Chart for Home Screen
+	widthAndHeight = 250
+    series = [123, 321, 123, 789, 537]
+    sliceColor = ['#F44336','#2196F3','#FFEB3B', '#4CAF50', '#FF9800']
+
+	  render() {
+		  return (
+			  <View style={styles.container}>
+				  <Text style={styles.HomeText}>GreenHouse</Text>
+				  <Text style = {styles.foodWasteText}> Food Waste History </Text>
+				  <LineChart
+					  data={{
+						  labels: ["January", "February", "March", "April", "May", "June"],
+						  datasets: [
+							  {
+								  data: [
+									  Math.random() * 20,
+									  Math.random() * 20,
+									  Math.random() * 20,
+									  Math.random() * 20,
+									  Math.random() * 20,
+									  Math.random() * 20
+								  ]
+							  }
+						  ]
+					  }}
+					  width={Dimensions.get("window").width} // from react-native
+					  height={220}
+					  yAxisLabel=""
+					  yAxisSuffix="lb"
+					  yAxisInterval={1} // optional, defaults to 1
+					  chartConfig={{
+						  backgroundColor: "#55E085",
+						  backgroundGradientFrom: "#55E085",
+						  backgroundGradientTo: "green",
+						  decimalPlaces: 2, // optional, defaults to 2dp
+						  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+						  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+						  style: {
+							  borderRadius: 16
+						  },
+						  propsForDots: {
+							  r: "6",
+							  strokeWidth: "2",
+							  stroke: "#ffa726"
+						  }
+					  }}
+					  bezier
+					  style={{
+						  marginVertical: 8,
+						  borderRadius: 16
+					  }}
+				  />
+				  
+
+	<ScrollView style={{flex: 1}}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Food Waste by Item</Text>
+          <PieChart
+            widthAndHeight = {250}
+            series={[70,10,10,10]}
+            sliceColor={['#855CF8', '#E289F2', '#503795', '#B085FF']}
+            doughnut={true}
+            coverRadius={0.45}
+            coverFill={'#FFF'}
+          />
+        </View>
+      </ScrollView>  
+				  
+			  </View>
+		  );
+	  }
 	}
-}
+
 
 const styles = StyleSheet.create({
-	homePageView: {
-		backgroundColor: "white",
+	container: {
 		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		paddingTop: 60,
 	},
-	homePageBackgroundMaskImage: {
-		resizeMode: "cover",
-		backgroundColor: "transparent",
-		width: null,
-		height: 813,
+	HomeText: {
+		color: "#4B9460",
+		fontSize: 40
 	},
-	backText: {
-		backgroundColor: "transparent",
-		color: "rgb(93, 176, 117)",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
+	foodWasteText: {
+		fontSize: 20,
 	},
-	body1Text: {
-		backgroundColor: "transparent",
-		color: "rgb(38, 50, 56)",
-		fontFamily: ".AppleSystemUIFont",
-		fontSize: 18,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		lineHeight: 27,
-		letterSpacing: 0.5,
-	},
-	body1TwoText: {
-		backgroundColor: "transparent",
-		color: "rgb(93, 176, 117)",
-		fontFamily: ".AppleSystemUIFont",
-		fontSize: 18,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "right",
-		lineHeight: 27,
-		letterSpacing: 0.5,
-	},
-	body2Text: {
-		backgroundColor: "transparent",
-		color: "rgb(96, 125, 139)",
-		fontFamily: ".AppleSystemUIFont",
-		fontSize: 15,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		lineHeight: 23,
-		letterSpacing: 0.28,
-		marginLeft: 53,
-	},
-	textText: {
-		color: "rgb(93, 176, 117)",
+	title: {
 		fontSize: 24,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "center",
-		backgroundColor: "transparent",
-		alignSelf: "center",
-		marginTop: 27,
+		margin: 10
 	},
-	spentText: {
-		backgroundColor: "transparent",
-		color: "rgb(189, 189, 189)",
-		fontSize: 10,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "center",
-		alignSelf: "center",
-		width: 50,
-		marginTop: 9,
-	},
-	body1ThreeText: {
-		color: "rgb(38, 50, 56)",
-		fontFamily: ".AppleSystemUIFont",
-		fontSize: 18,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		lineHeight: 27,
-		letterSpacing: 0.5,
-		backgroundColor: "transparent",
-		marginLeft: 18,
-		marginTop: 73,
-	},
-	buyLessOfTheseText: {
-		color: "black",
-		fontSize: 24,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		alignSelf: "stretch",
-		marginRight: 99,
-		marginTop: 8,
-	},
-	textThreeText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		alignSelf: "flex-end",
-		marginRight: 58,
-		marginTop: 56,
-	},
-	textTwoText: {
-		color: "white",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		alignSelf: "flex-end",
-		marginRight: 19,
-		marginTop: 26,
-	},
-	textFourText: {
-		color: "white",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "center",
-		backgroundColor: "transparent",
-		marginLeft: 106,
-		marginTop: 22,
-	},
-	textFiveText: {
-		color: "white",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		alignSelf: "flex-end",
-		marginRight: 22,
-		marginTop: 1,
-	},
-	captionText: {
-		color: "rgb(38, 50, 56)",
-		fontFamily: ".AppleSystemUIFont",
-		fontSize: 13,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		lineHeight: 18,
-		letterSpacing: 0.45,
-		backgroundColor: "transparent",
-		alignSelf: "flex-end",
-		marginRight: 19,
-	},
-	captionThreeText: {
-		color: "rgb(38, 50, 56)",
-		fontFamily: ".AppleSystemUIFont",
-		fontSize: 13,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		lineHeight: 18,
-		letterSpacing: 0.45,
-		backgroundColor: "transparent",
-		marginLeft: 53,
-	},
-	insightsText: {
-		color: "rgb(75, 148, 96)",
-		fontSize: 30,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "center",
-		backgroundColor: "transparent",
-		position: "absolute",
-		alignSelf: "center",
-		top: 60,
-	},
+	
 })
