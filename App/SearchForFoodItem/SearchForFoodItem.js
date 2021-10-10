@@ -6,18 +6,24 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React from "react"
-import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from "react-native"
+import React, { useRef, useEffect } from "react"
+import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 
 
 export default function SearchForFoodItem(props) {
 
-	const [text, setText] = React.useState("Useless Text");
+	const [text, setText] = React.useState("Useless Text")
+
 	// const [searchResults, setSearchResults] = React.useState([])
 
 	const styles = EStyleSheet.create({
+		pageTitle: {
+			fontSize: '2rem',
+			textAlign: 'center',
+			fontWeight: 'bold'
+		},
 		container: {
 			flex: 1,
 			flexDirection: 'column',
@@ -26,14 +32,28 @@ export default function SearchForFoodItem(props) {
 		},
 		item: {
 			flex: 1,
-			flexDirection: 'row',
+			flexDirection: 'col',
 			justifyContent: 'flex-start',
-			paddingVertical: '1rem',
+
+			paddingVertical: "1rem",
 
 			borderBottomWidth: 1,
 			borderBottomColor: 'lightgray',
 		},
-		textInputAddItem: {
+		itemTitle: {
+			fontWeight: "bold"
+		},
+		containerImageItem: {
+			height: "8rem",
+			width: "8rem",
+			alignSelf: "center"
+		},
+		imageItem: {
+			width: "100%",
+			height: "100%",
+			resizeMode: "contain",
+		},
+		textInputSearch: {
 			borderWidth: 3,
 			borderColor: 'lightgray',
 			borderRadius: 100,
@@ -42,22 +62,36 @@ export default function SearchForFoodItem(props) {
 			paddingVertical: '1rem',
 			paddingHorizontal: '1rem'
 		},
+		buttonSelect: {
+			backgroundColor: '#0071dbfa',
+			borderRadius: 100,
+			marginHorizontal: '2rem',
+
+			paddingVertical: '1rem',
+			marginVertical: '1rem',
+			marginHorizontal: '1.5rem',
+		},
+		buttonSelectText: {
+			color: 'white',
+			alignSelf: 'center',
+			fontSize: '1rem'
+		}
 	})
 
 	const searchResults = [
-		{ itemName: "Eggs (2 Dozen)" },
-		{ itemName: "Whole Wheat Bread (2 Loaves)" },
-		{ itemName: "Milk (1 Gallon)" },
-		{ itemName: "Kiwis" },
-		{ itemName: "Bananas" },
-		{ itemName: "Apples" },
+		{ itemName: "Apple", image: require("./../../assets/images/apple.png") },
+		{ itemName: "Bananas", image: require("./../../assets/images/banana.png") },
 	];
 
 	const ItemView = ({ item }) => {
 		return (
 			<View style={styles.item}>
 				<Text style={styles.itemTitle}>{item.itemName}</ Text>
-				<TouchableOpacity style={styles.deleteButton} onPress={() => alert('Hello, world!')}>
+				<View style={styles.containerImageItem}>
+					<Image style={styles.imageItem} source={item.image}></Image>
+				</View>
+				<TouchableOpacity style={styles.buttonSelect} onPress={() => alert('Hello, world!')}>
+					<Text style={styles.buttonSelectText}>Select</Text>
 				</TouchableOpacity>
 			</View>
 		)
@@ -69,20 +103,27 @@ export default function SearchForFoodItem(props) {
 		)
 	}
 
-	const handleTextChange = ({target}) => {
+	const handleTextChange = ({ target }) => {
 		// Retrieve search results
 		// Set search results
 
 		// Bind search results to ItemViews, update on text change
 	}
 
+	const textInputSearchRef = useRef(null)
+
+	useEffect(() => {
+		setTimeout(() => textInputSearchRef.current.focus(), 100)
+	}, []);
+
 	return (
 		<View style={styles.container}>
+			<Text style={styles.pageTitle}>Create List</Text>
 			<View>
 				<TextInput
-					style={styles.textInputAddItem}
+					style={styles.textInputSearch}
 					placeholder="Search for an item"
-					
+					ref={textInputSearchRef}
 				/>
 			</View>
 			<FlatList

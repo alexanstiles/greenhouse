@@ -7,7 +7,7 @@
 //
 
 import React from "react"
-import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from "react-native"
+import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { useNavigation } from "@react-navigation/native";
 
@@ -46,17 +46,18 @@ export default function CreateShoppingList(props) {
 		},
 		itemTitle: {
 		},
-		deleteButton: {
+		buttonDelete: {
 			position: 'absolute',
-			right: '1rem',
+			right: '0rem',
 
-			padding: '1rem',
-			alignSelf:'center'
+			padding: '0.5rem',
+			alignSelf: 'center',
+			alignItems: 'center'
 		},
-		deleteButtonText: {
-			textAlignVertical: 'center',
+		buttonDeleteText: {
 		},
 		textInputAddItem: {
+			color: 'gray',
 			borderWidth: 3,
 			borderColor: 'lightgray',
 			borderRadius: 100,
@@ -97,8 +98,8 @@ export default function CreateShoppingList(props) {
 		return (
 			<View style={styles.item}>
 				<Text style={styles.itemTitle}>{item.itemName}</ Text>
-				<TouchableOpacity style={styles.deleteButton} onPress={() => alert('Hello, world!')}>
-					<Text style={styles.deleteButtonText}>X</Text>
+				<TouchableOpacity style={styles.buttonDelete} onPress={() => alert('Hello, world!')}>
+					<Text style={styles.buttonDeleteText}>X</Text>
 				</TouchableOpacity>
 			</View>
 		)
@@ -115,22 +116,20 @@ export default function CreateShoppingList(props) {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.pageTitle}>Create List</Text>
-			<View>
-				<TouchableOpacity>
-					<TextInput
-						style={styles.textInputAddItem}
-						placeholder="Search for an item"
-					/>
-				</TouchableOpacity>
-			</View>
 			<FlatList
 				data={shoppingData}
 				renderItem={renderItem}
 			/>
-			<TouchableOpacity style={styles.buttonFinished} title="Finish List" onPress={() => navigation.navigate('Search Item')}>
-				<Text style={styles.buttonFinishedText}>Open Search Page</Text>
+			<TouchableOpacity style={styles.buttonFinished}>
+				<Text
+					style={styles.buttonFinishedText}
+					onPress={() => {
+						navigation.navigate('Search Item')
+					}}>
+					Open Search Page
+				</Text>
 			</TouchableOpacity>
-			<TouchableOpacity style={styles.buttonFinished} title="Finish List" onPress={() => alert('Hello, world!')}>
+			<TouchableOpacity style={styles.buttonFinished} onPress={() => alert('Hello, world!')}>
 				<Text style={styles.buttonFinishedText}>Finish List</Text>
 			</TouchableOpacity>
 		</View>
