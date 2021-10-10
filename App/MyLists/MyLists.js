@@ -1,344 +1,168 @@
 //
-//  MyLists
+//  ShoppingList
 //  Greenhouse Designs 13-Sep-2021-145518
 //
-//  Created by [Author].
-//  Copyright © 2018 [Company]. All rights reserved.
-//
 
-import React from "react"
-import { Image, StyleSheet, Text, View } from "react-native"
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  Button,
+  View,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
+export default function ShoppingList({ data }) {
+  const navigation = useNavigation();
 
-export default class MyLists extends React.Component {
+  // replace this with real data later!
+  let staticData = [
+    {
+      title: "Sunday Lunch",
+      dateCreated: "10/27/2021",
+      items: [
+        { itemName: "Eggs (2 Dozen)" },
+        { itemName: "Whole Wheat Bread (2 Loaves)" },
+        { itemName: "Milk (1 Gallon)" },
+        { itemName: "Kiwis" },
+        { itemName: "Bananas" },
+        { itemName: "Apples" },
+      ],
+    },
+    {
+      title: "Monday Dinner",
+      dateCreated: "10/28/2021",
+      items: [
+        { itemName: "Eggs (2 Dozen)" },
+        { itemName: "Whole Wheat Bread (2 Loaves)" },
+        { itemName: "Milk (1 Gallon)" },
+        { itemName: "Kiwis" },
+        { itemName: "Bananas" },
+        { itemName: "Apples" },
+      ],
+    },
+    {
+      title: "Friday Party",
+      dateCreated: "10/29/2021",
+      items: [
+        { itemName: "Eggs (2 Dozen)" },
+        { itemName: "Whole Wheat Bread (2 Loaves)" },
+        { itemName: "Milk (1 Gallon)" },
+        { itemName: "Kiwis" },
+        { itemName: "Bananas" },
+        { itemName: "Apples" },
+      ],
+    },
+  ];
 
-	static navigationOptions = ({ navigation }) => {
-	
-		const { params = {} } = navigation.state
-		return {
-				header: null,
-				headerLeft: null,
-				headerRight: null,
-			}
-	}
+  const [listData, setListData] = useState(staticData);
 
-	constructor(props) {
-		super(props)
-	}
+  // Delete list item function
+  const onDelete = (title) => {
+    const toDeleteIndex = listData.findIndex((list) => list.title === title);
+    listData.splice(toDeleteIndex, 1);
+    setListData([...listData]);
+  };
 
-	componentDidMount() {
-	
-	}
+  if (listData.length === 0) {
+    return (
+      <View style={styles.shoppingListView}>
+        <TouchableOpacity
+          style={styles.buttonFinished}
+          onPress={() => {
+            navigation.navigate("Create new list");
+          }}
+        >
+          <Text style={styles.buttonFinishedText}>Add a list...</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
-	render() {
-	
-		return <View
-				style={styles.myListsView}>
-				<View
-					pointerEvents="box-none"
-					style={{
-						position: "absolute",
-						left: 0,
-						right: 0,
-						top: 0,
-						height: 813,
-					}}>
-					<View
-						pointerEvents="box-none"
-						style={{
-							position: "absolute",
-							left: 0,
-							right: 0,
-							top: 0,
-							bottom: 0,
-							justifyContent: "center",
-						}}>
-						<Image
-							source={require("./../../assets/images/my-lists-background-mask.png")}
-							style={styles.myListsBackgroundMaskImage}/>
-					</View>
-					<View
-						pointerEvents="box-none"
-						style={{
-							position: "absolute",
-							left: 16,
-							right: 16,
-							top: 68,
-							height: 474,
-						}}>
-						<View
-							pointerEvents="box-none"
-							style={{
-								height: 18,
-								flexDirection: "row",
-								alignItems: "flex-start",
-							}}>
-							<Text
-								style={styles.backText}>Back</Text>
-							<View
-								style={{
-									flex: 1,
-								}}/>
-							<Text
-								style={styles.filterText}>Filter</Text>
-						</View>
-						<Text
-							style={styles.searchText}>Search</Text>
-						<View
-							pointerEvents="box-none"
-							style={{
-								height: 19,
-								marginLeft: 54,
-								marginRight: 12,
-								marginTop: 40,
-								flexDirection: "row",
-								alignItems: "flex-start",
-							}}>
-							<Text
-								style={styles.headerText}>List 1</Text>
-							<View
-								style={{
-									flex: 1,
-								}}/>
-							<Text
-								style={styles.mAgoText}>10/27/2021</Text>
-						</View>
-						<Text
-							style={styles.heLlWantToUseYourYachtAndIDonTWantThisThingSmellingLikeFishText}>Banana, Whole Wheat Bread, Milk, Kiwis, Apples</Text>
-						<View
-							pointerEvents="box-none"
-							style={{
-								height: 19,
-								marginLeft: 54,
-								marginRight: 12,
-								marginTop: 32,
-								flexDirection: "row",
-								alignItems: "flex-start",
-							}}>
-							<Text
-								style={styles.headerTwoText}>List 2</Text>
-							<View
-								style={{
-									flex: 1,
-								}}/>
-							<Text
-								style={styles.mAgoTwoText}>10/5/2021</Text>
-						</View>
-						<Text
-							style={styles.heLlWantToUseYourYachtAndIDonTWantThisThingSmellingLikeFishTwoText}>Potato Chips, Sprite, Chicken Breast, Buffalo Hot Sauce</Text>
-						<View
-							pointerEvents="box-none"
-							style={{
-								height: 19,
-								marginLeft: 54,
-								marginRight: 12,
-								marginTop: 32,
-								flexDirection: "row",
-								alignItems: "flex-start",
-							}}>
-							<Text
-								style={styles.headerThreeText}>List 3</Text>
-							<View
-								style={{
-									flex: 1,
-								}}/>
-							<Text
-								style={styles.mAgoThreeText}>9/30/2021</Text>
-						</View>
-						<Text
-							style={styles.heLlWantToUseYourYachtAndIDonTWantThisThingSmellingLikeFishThreeText}>All-Purpose Flour, Table Salt, Granulated Sugar, Baking Soda</Text>
-						<View
-							pointerEvents="box-none"
-							style={{
-								height: 19,
-								marginLeft: 54,
-								marginRight: 12,
-								marginTop: 32,
-								flexDirection: "row",
-								alignItems: "flex-start",
-							}}>
-							<Text
-								style={styles.headerFourText}>List 4</Text>
-							<View
-								style={{
-									flex: 1,
-								}}/>
-							<Text
-								style={styles.mAgoFourText}>9/15/2021</Text>
-						</View>
-						<Text
-							style={styles.heLlWantToUseYourYachtAndIDonTWantThisThingSmellingLikeFishFourText}>White Onion, Salmon Filet, Mayonnaise, Romaine Lettuce, Spinach</Text>
-					</View>
-				</View>
-				<Text
-					style={styles.feedText}>My Lists</Text>
-			</View>
-	}
+  return (
+    <View style={styles.shoppingListView}>
+      {listData.map((shoppingItem) => {
+        return (
+          <View key={shoppingItem.title} style={styles.listRow}>
+            <View style={styles.flexbox}>
+              <Text style={styles.titlestyles}>{shoppingItem.title}</Text>
+              <Text style={{ marginLeft: "auto" }}>
+                {shoppingItem.dateCreated}
+              </Text>
+            </View>
+            <View style={styles.flexbox}>
+              <Text style={{ width: "80%" }}>
+                {shoppingItem.items.map((item) => {
+                  return (
+                    <View key={item.itemName}>
+                      <Text>{item.itemName}, </Text>
+                    </View>
+                  );
+                })}
+              </Text>
+              <TouchableOpacity onPress={() => onDelete(shoppingItem.title)}>
+                <Image
+                  source={require("./../../assets/images/trash.png")}
+                  style={styles.trashIcon}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.hr}></View>
+          </View>
+        );
+      })}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-	myListsView: {
-		backgroundColor: "white",
-		flex: 1,
-	},
-	myListsBackgroundMaskImage: {
-		backgroundColor: "transparent",
-		resizeMode: "cover",
-		width: null,
-		height: 813,
-	},
-	backText: {
-		color: "rgb(93, 176, 117)",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-	},
-	filterText: {
-		color: "rgb(93, 176, 117)",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "right",
-		backgroundColor: "transparent",
-	},
-	searchText: {
-		color: "rgb(189, 189, 189)",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		alignSelf: "flex-start",
-		marginLeft: 16,
-		marginTop: 58,
-	},
-	headerText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-	},
-	mAgoText: {
-		backgroundColor: "transparent",
-		color: "rgb(189, 189, 189)",
-		fontSize: 14,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "right",
-		marginTop: 2,
-	},
-	heLlWantToUseYourYachtAndIDonTWantThisThingSmellingLikeFishText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 14,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		alignSelf: "flex-end",
-		width: 269,
-		marginRight: 20,
-		marginTop: 8,
-	},
-	headerTwoText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-	},
-	mAgoTwoText: {
-		color: "rgb(189, 189, 189)",
-		fontSize: 14,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "right",
-		backgroundColor: "transparent",
-		marginTop: 2,
-	},
-	heLlWantToUseYourYachtAndIDonTWantThisThingSmellingLikeFishTwoText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 14,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		alignSelf: "flex-end",
-		width: 269,
-		marginRight: 20,
-		marginTop: 8,
-	},
-	headerThreeText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-	},
-	mAgoThreeText: {
-		color: "rgb(189, 189, 189)",
-		fontSize: 14,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "right",
-		backgroundColor: "transparent",
-		marginTop: 2,
-	},
-	heLlWantToUseYourYachtAndIDonTWantThisThingSmellingLikeFishThreeText: {
-		color: "black",
-		fontSize: 14,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-		alignSelf: "flex-end",
-		width: 269,
-		marginRight: 20,
-		marginTop: 8,
-	},
-	headerFourText: {
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-	},
-	mAgoFourText: {
-		color: "rgb(189, 189, 189)",
-		fontSize: 14,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "right",
-		backgroundColor: "transparent",
-		marginTop: 2,
-	},
-	heLlWantToUseYourYachtAndIDonTWantThisThingSmellingLikeFishFourText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 14,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		alignSelf: "flex-end",
-		width: 269,
-		marginRight: 20,
-		marginTop: 8,
-	},
-	feedText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 30,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "center",
-		position: "absolute",
-		alignSelf: "center",
-		top: 60,
-	},
-})
+  listRow: {
+    padding: 0,
+  },
+  buttonFinished: {
+    backgroundColor: "green",
+    borderRadius: 100,
+    marginTop: "auto",
+    marginBottom: "2rem",
+
+    paddingVertical: "1rem",
+    marginVertical: "1rem",
+    marginHorizontal: "1.5rem",
+  },
+  buttonFinishedText: {
+    color: "white",
+    alignSelf: "center",
+    fontSize: "1.1rem",
+  },
+  trashIcon: {
+    height: 50,
+    width: 44,
+    marginLeft: "auto",
+  },
+  titlestyles: {
+    fontWeight: 600,
+    fontSize: 18,
+  },
+  hr: {
+    borderBottomColor: "#E8E8E8",
+    borderBottomWidth: 1,
+    marginTop: 30,
+    marginBottom: 30,
+  },
+  shoppingListView: {
+    padding: 20,
+  },
+  flexbox: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  alignRight: {
+    marginLeft: "auto",
+  },
+  deleteButton: {
+    width: 50,
+  },
+});

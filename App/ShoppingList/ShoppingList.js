@@ -2,22 +2,11 @@
 //  ShoppingList
 //  Greenhouse Designs 13-Sep-2021-145518
 //
-//  Created by [Author].
-//  Copyright © 2018 [Company]. All rights reserved.
-//
 
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function ShoppingList({ data }) {
-  const navigationOptions = ({ navigation }) => {
-    const { params = {} } = navigation.state;
-    return {
-      header: null,
-      headerLeft: null,
-      headerRight: null,
-    };
-  };
 
   // replace this with real data later!
   const shoppingData = [
