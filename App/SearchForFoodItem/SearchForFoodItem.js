@@ -122,7 +122,7 @@ export default function SearchForFoodItem(props) {
 			<View>
 				<TextInput
 					style={styles.textInputSearch}
-					placeholder="Search for an item"
+					placeholder="Search for an item (feature not yet available)"
 					ref={textInputSearchRef}
 				/>
 			</View>
