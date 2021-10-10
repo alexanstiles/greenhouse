@@ -32,7 +32,7 @@ export default function SearchForFoodItem(props) {
 		},
 		item: {
 			flex: 1,
-			flexDirection: 'col',
+			flexDirection: 'column',
 			justifyContent: 'flex-start',
 
 			paddingVertical: "1rem",

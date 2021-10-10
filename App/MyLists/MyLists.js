@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   buttonFinishedText: {
     color: "white",
     alignSelf: "center",
-    fontSize: "1.1rem",
+    fontSize: 20,
   },
   trashIcon: {
     height: 50,
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   titlestyles: {
-    fontWeight: 600,
+    fontWeight: '600',
     fontSize: 18,
   },
   hr: {

@@ -49,10 +49,6 @@ import Pie from "react-native-pie";
 		],
 	};
 	
-	// Example Pie Chart for Home Screen
-	widthAndHeight = 250
-    series = [123, 321, 123, 789, 537]
-    sliceColor = ['#F44336','#2196F3','#FFEB3B', '#4CAF50', '#FF9800']
 
 	  render() {
 		  return (
@@ -103,7 +99,6 @@ import Pie from "react-native-pie";
 					  }}
 				  />
 				  
-
 	<ScrollView style={{flex: 1}}>
         <View style={styles.container}>
           <Text style={styles.title}>Food Waste by Item</Text>
