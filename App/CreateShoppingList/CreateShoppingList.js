@@ -95,7 +95,6 @@ export default function CreateShoppingList(props) {
 	];
 
 	const [items, setItems] = useState([...startingItems])
-	console.log(items)
 
 	const deleteItem = (name) => {
 		const i = items.findIndex((item) => item.name === name);
