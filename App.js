@@ -87,7 +87,7 @@ export default class App extends React.Component {
 							if (route.name === "Home") {
 								iconName = "home"
 							}
-							else if (route.name === "Create new list") {
+							else if (route.name === "Create List") {
 								iconName = "shoppingcart"
 							}
 							else if (route.name === "My Lists") {
