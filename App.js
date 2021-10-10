@@ -93,6 +93,9 @@ export default class App extends React.Component {
 							else if (route.name === "My Lists") {
 								return <Ionicons name="list" size={size} color={color} />
 							}
+							else if (route.name === "Manage List") {
+								return <Ionicons name="create-outline" size={size} color={color} />
+							}
 							return <AntDesign name={iconName} size={size} color={color} />
 						},
 						"tabBarActiveTintColor": "green",
