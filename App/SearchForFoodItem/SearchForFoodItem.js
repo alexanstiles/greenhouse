@@ -19,6 +19,11 @@ export default function SearchForFoodItem(props) {
 	// const [searchResults, setSearchResults] = React.useState([])
 
 	const styles = EStyleSheet.create({
+		pageTitle: {
+			fontSize: '2rem',
+			textAlign: 'center',
+			fontWeight: 'bold'
+		},
 		container: {
 			flex: 1,
 			flexDirection: 'column',
@@ -27,11 +32,26 @@ export default function SearchForFoodItem(props) {
 		},
 		item: {
 			flex: 1,
-			flexDirection: 'row',
+			flexDirection: 'col',
 			justifyContent: 'flex-start',
+
+			paddingVertical: "1rem",
 
 			borderBottomWidth: 1,
 			borderBottomColor: 'lightgray',
+		},
+		itemTitle: {
+			fontWeight: "bold"
+		},
+		containerImageItem: {
+			height: "8rem",
+			width: "8rem",
+			alignSelf: "center"
+		},
+		imageItem: {
+			width: "100%",
+			height: "100%",
+			resizeMode: "contain",
 		},
 		textInputSearch: {
 			borderWidth: 3,
@@ -42,29 +62,36 @@ export default function SearchForFoodItem(props) {
 			paddingVertical: '1rem',
 			paddingHorizontal: '1rem'
 		},
-		pageTitle: {
-			fontSize: '2rem',
-			textAlign: 'center',
-			fontWeight: 'bold'
+		buttonSelect: {
+			backgroundColor: '#0071dbfa',
+			borderRadius: 100,
+			marginHorizontal: '2rem',
+
+			paddingVertical: '1rem',
+			marginVertical: '1rem',
+			marginHorizontal: '1.5rem',
 		},
-		buttonItem: {
-			width: '100%',
-			padding: '1rem'
+		buttonSelectText: {
+			color: 'white',
+			alignSelf: 'center',
+			fontSize: '1rem'
 		}
 	})
 
 	const searchResults = [
-		{ itemName: "Bananas" },
-		{ itemName: "Bananas (1 dozen)" },
-		{ itemName: "Banana mashed" },
-		{ itemName: "Banana sliced" },
+		{ itemName: "Apple", image: require("./../../assets/images/apple.png") },
+		{ itemName: "Bananas", image: require("./../../assets/images/banana.png") },
 	];
 
 	const ItemView = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<TouchableOpacity style={styles.buttonItem} onPress={() => alert('Hello, world!')}>
-					<Text style={styles.itemTitle}>{item.itemName}</ Text>
+				<Text style={styles.itemTitle}>{item.itemName}</ Text>
+				<View style={styles.containerImageItem}>
+					<Image style={styles.imageItem} source={item.image}></Image>
+				</View>
+				<TouchableOpacity style={styles.buttonSelect} onPress={() => alert('Hello, world!')}>
+					<Text style={styles.buttonSelectText}>Select</Text>
 				</TouchableOpacity>
 			</View>
 		)
