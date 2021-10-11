@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default function ShoppingList({ data }) {
   const navigation = useNavigation();
@@ -117,7 +118,7 @@ export default function ShoppingList({ data }) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   listRow: {
     padding: 0,
   },

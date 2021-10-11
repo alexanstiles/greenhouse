@@ -128,12 +128,12 @@ export default function CreateShoppingList(props) {
 				data={items}
 				renderItem={renderItem}
 			/>
-			<TouchableOpacity style={styles.buttonFinished}>
+			<TouchableOpacity style={styles.buttonFinished} onPress={() => {
+				navigation.navigate('Search Item')
+			}}>
 				<Text
 					style={styles.buttonFinishedText}
-					onPress={() => {
-						navigation.navigate('Search Item')
-					}}>
+				>
 					Open Search Page
 				</Text>
 			</TouchableOpacity>
