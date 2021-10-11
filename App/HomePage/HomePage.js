@@ -12,7 +12,7 @@ import {
 	LineChart, PieChart
 } from "react-native-chart-kit";
 // import PieChart from 'react-native-pie-chart';
-import Pie from "react-native-pie";
+
 
   
 
@@ -148,7 +148,7 @@ import Pie from "react-native-pie";
 					  }}
 				  />
 				  
-			<View style={{flex:1, justifyContent:'space-evenly', alignItems: 'center',  }}>
+			<View style={{flex:1, justifyContent:'space-evenly', alignItems: 'center', }}>
 				<Text style={{ fontSize:30 }}>Food Waste by Item</Text>
 					<PieChart
 					data={pieData}

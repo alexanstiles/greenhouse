@@ -118,7 +118,7 @@ export default function SearchForFoodItem(props) {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.pageTitle}>Create List</Text>
+			
 			<View>
 				<TextInput
 					style={styles.textInputSearch}
