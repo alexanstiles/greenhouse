@@ -81,6 +81,7 @@ export default function SearchForFoodItem(props) {
 	const searchResults = [
 		{ itemName: "Apple", image: require("./../../assets/images/apple.png") },
 		{ itemName: "Bananas", image: require("./../../assets/images/banana.png") },
+		{ itenName: "Oranges", image: require("./../../assets/images/orange.png")}
 	];
 
 	const ItemView = ({ item }) => {
