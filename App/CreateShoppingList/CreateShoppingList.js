@@ -123,7 +123,7 @@ export default function CreateShoppingList(props) {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.pageTitle}>Create List</Text>
+			
 			<FlatList
 				data={items}
 				renderItem={renderItem}

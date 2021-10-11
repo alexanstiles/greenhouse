@@ -73,7 +73,7 @@ export default function ShoppingList({ data }) {
         <TouchableOpacity
           style={styles.buttonFinished}
           onPress={() => {
-            navigation.navigate("Create new list");
+            navigation.navigate("Create List");
           }}
         >
           <Text style={styles.buttonFinishedText}>Add a list...</Text>
