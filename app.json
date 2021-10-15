@@ -23,6 +23,9 @@
     "android": {
       "package": "com.greenhousedesigns.greenhouse",
       "versionCode": 1
-    }
+    },
+    "description": "",
+    "slug": "greenhouse",
+    "owner": "cs4720"
   }
 }
