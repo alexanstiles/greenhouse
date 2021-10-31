@@ -10,6 +10,7 @@ import React, { useRef, useEffect, useState } from "react"
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { getImage } from '../../services/imageSearch'
 
 const searchResults = [
 	{ itemName: "Apple", image: require("./../../assets/images/apple.png") },
@@ -124,7 +125,7 @@ export default function SearchForFoodItem(props) {
 		const date = selectedDate || expireDate
 		setExpireDate(date)
 		setShowDatePicker(false)
-        console.log("🚀 ~ file: SearchForFoodItem.js ~ line 126 ~ handleDateSelect ~ expireDate", date)
+		console.log("🚀 ~ file: SearchForFoodItem.js ~ line 126 ~ handleDateSelect ~ expireDate", date)
 	}
 
 	const textInputSearchRef = useRef(null)
