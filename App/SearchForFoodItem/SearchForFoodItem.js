@@ -10,7 +10,8 @@ import React, { useRef, useEffect, useState } from "react"
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { getImage } from '../../services/imageSearch'
+import imageService from '../../services/imageSearch'
+import groceryService from '../../services/grocerySearch'
 
 const searchResults = [
 	{ itemName: "Apple", image: require("./../../assets/images/apple.png") },
@@ -26,7 +27,18 @@ export default function SearchForFoodItem(props) {
 
 	useEffect(() => {
 		setTimeout(() => textInputSearchRef.current.focus(), 100)
-	}, []);
+	}, [])
+
+	const query = "banana"
+	imageService.getImage(query).then((imageUrl) => {
+    	console.log("🚀 ~ file: SearchForFoodItem.js ~ line 33 ~ imageService.getImage ~ imageUrl", imageUrl)
+	})
+	groceryService.getGroceryItems(query).then((matches) => {
+        console.log("🚀 ~ file: SearchForFoodItem.js ~ line 36 ~ groceryService.getGroceryItems ~ items", matches)
+		groceryService.getShelfLife(matches[0].id).then((shelfLife) => {
+            console.log("🚀 ~ file: SearchForFoodItem.js ~ line 39 ~ groceryService.getShelfLife ~ shelfLife", shelfLife)
+		})
+	})
 
 	// const [searchResults, setSearchResults] = React.useState([])
 

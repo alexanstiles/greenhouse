@@ -3,10 +3,6 @@ const baseUrl = 'https://bing-image-search1.p.rapidapi.com/images/'
 const token = '185242e051msh5295af43960ebd6p1869a9jsn7eb793faef1b'
 
 const getImage = async (itemName) => {
-    const url = baseUrl + "search"
-    const headers = {
-        
-    }
     const options = {
         method: 'GET',
         url: baseUrl + 'search',
