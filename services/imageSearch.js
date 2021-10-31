@@ -1,6 +1,6 @@
 import axios from 'axios'
 const baseUrl = 'https://bing-image-search1.p.rapidapi.com/images/'
-const token = null
+const token = '185242e051msh5295af43960ebd6p1869a9jsn7eb793faef1b'
 
 const getImage = async (itemName) => {
     const url = baseUrl + "search"
@@ -13,7 +13,7 @@ const getImage = async (itemName) => {
         params: { q: itemName },
         headers: {
             'x-rapidapi-host': 'bing-image-search1.p.rapidapi.com',
-            'x-rapidapi-key': '185242e051msh5295af43960ebd6p1869a9jsn7eb793faef1b'
+            'x-rapidapi-key': token
         }
     }
     const response = await axios.request(options)
