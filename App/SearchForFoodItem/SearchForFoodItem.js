@@ -21,26 +21,14 @@ const searchResults = [
 
 export default function SearchForFoodItem(props) {
 
-	const [text, setText] = useState("Useless Text")
+	const [text, setText] = useState("")
 	const [showDatePicker, setShowDatePicker] = useState(false)
 	const [expireDate, setExpireDate] = useState(new Date())
+	const [groceryItems, setGroceryItems] = useState([])
 
 	useEffect(() => {
 		setTimeout(() => textInputSearchRef.current.focus(), 100)
 	}, [])
-
-	const query = "banana"
-	imageService.getImage(query).then((imageUrl) => {
-    	console.log("🚀 ~ file: SearchForFoodItem.js ~ line 33 ~ imageService.getImage ~ imageUrl", imageUrl)
-	})
-	groceryService.getGroceryItems(query).then((matches) => {
-        console.log("🚀 ~ file: SearchForFoodItem.js ~ line 36 ~ groceryService.getGroceryItems ~ items", matches)
-		groceryService.getShelfLife(matches[0].id).then((shelfLife) => {
-            console.log("🚀 ~ file: SearchForFoodItem.js ~ line 39 ~ groceryService.getShelfLife ~ shelfLife", shelfLife)
-		})
-	})
-
-	// const [searchResults, setSearchResults] = React.useState([])
 
 	const styles = EStyleSheet.create({
 		pageTitle: {
@@ -102,16 +90,12 @@ export default function SearchForFoodItem(props) {
 		}
 	})
 
-	const popupDatePicker = () => {
-
-	}
-
 	const ItemView = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<Text style={styles.itemTitle}>{item.itemName}</ Text>
+				<Text style={styles.itemTitle}>{item.name}</ Text>
 				<View style={styles.containerImageItem}>
-					<Image style={styles.imageItem} source={item.image}></Image>
+					<Image style={styles.imageItem} source={{uri: item.image}}></Image>
 				</View>
 				<TouchableOpacity style={styles.buttonSelect} onPress={() => setShowDatePicker(!showDatePicker)}>
 					<Text style={styles.buttonSelectText}>Select</Text>
@@ -126,10 +110,13 @@ export default function SearchForFoodItem(props) {
 		)
 	}
 
-	const handleTextChange = ({ target }) => {
+	const handleTextChange = async (text) => {
 		// Retrieve search results
 		// Set search results
-
+		setText(text)
+		if (text.length >= 3){
+			setGroceryItems((await groceryService.getGroceryItems(text)))
+		}
 		// Bind search results to ItemViews, update on text change
 	}
 
@@ -137,6 +124,7 @@ export default function SearchForFoodItem(props) {
 		const date = selectedDate || expireDate
 		setExpireDate(date)
 		setShowDatePicker(false)
+		// TODO: Close the search page, and add to the user's list the selected item and its expiration date
 		console.log("🚀 ~ file: SearchForFoodItem.js ~ line 126 ~ handleDateSelect ~ expireDate", date)
 	}
 
@@ -147,12 +135,14 @@ export default function SearchForFoodItem(props) {
 			<View>
 				<TextInput
 					style={styles.textInputSearch}
-					placeholder="Search for an item (feature not yet available)"
+					onChangeText={handleTextChange}
+					value={text}
+					placeholder="Enter an item name..."
 					ref={textInputSearchRef}
 				/>
 			</View>
 			<FlatList
-				data={searchResults}
+				data={groceryItems}
 				renderItem={renderItem} />
 			{showDatePicker && (
 				<DateTimePicker

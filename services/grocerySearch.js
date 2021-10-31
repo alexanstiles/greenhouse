@@ -1,4 +1,5 @@
 import axios from 'axios'
+import imageService from './imageSearch'
 const baseUrl = 'https://shelf-life-api.herokuapp.com/'
 const proxy = 'https://server-al.herokuapp.com/' // CORS Bypass
 
@@ -8,6 +9,9 @@ const proxy = 'https://server-al.herokuapp.com/' // CORS Bypass
  * @returns Array of objects with following fields: {"id":16447,"name":"Banana Liqueur, Commercially Bottled - Unopened or Opened","url":"https://www.stilltasty.com/fooditems/index/16447"}
  */
 const getGroceryItems = async (itemName) => {
+    if (itemName.length < 3) {
+        throw new Error("itemName must be at least 3 chars long")
+    }
     const options = {
         method: "GET",
         url: proxy + baseUrl + 'search/',
@@ -19,8 +23,16 @@ const getGroceryItems = async (itemName) => {
         }
     }
     const response = await axios.request(options)
+    console.log("🚀 ~ file: grocerySearch.js ~ line 25 ~ getGroceryItems ~ response", response)
 
-    return response.data
+    let groceryItems = response.data
+    groceryItems = groceryItems.slice(0, 2)
+    for (const item of groceryItems) {
+        item.image = await imageService.getImage(item.name)
+        await new Promise(resolve => setTimeout(resolve, 100))
+    }
+
+    return groceryItems
 }
 
 /**
