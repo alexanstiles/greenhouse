@@ -21,7 +21,7 @@ export default function SearchForFoodItem(props) {
 
 	const [text, setText] = useState("Useless Text")
 	const [showDatePicker, setShowDatePicker] = useState(false)
-	const [expireDate, setExpireDate] = useState()
+	const [expireDate, setExpireDate] = useState(new Date())
 
 	useEffect(() => {
 		setTimeout(() => textInputSearchRef.current.focus(), 100)
@@ -120,6 +120,13 @@ export default function SearchForFoodItem(props) {
 		// Bind search results to ItemViews, update on text change
 	}
 
+	const handleDateSelect = (event, selectedDate) => {
+		const date = selectedDate || expireDate
+		setExpireDate(date)
+		setShowDatePicker(false)
+        console.log("🚀 ~ file: SearchForFoodItem.js ~ line 126 ~ handleDateSelect ~ expireDate", date)
+	}
+
 	const textInputSearchRef = useRef(null)
 
 	return (
@@ -136,11 +143,11 @@ export default function SearchForFoodItem(props) {
 				renderItem={renderItem} />
 			{showDatePicker && (
 				<DateTimePicker
-					value={date}
-					mode={mode}
+					value={expireDate}
+					mode="date"
 					is24Hour={true}
 					display="default"
-					onChange={onChange}
+					onChange={handleDateSelect}
 				/>
 			)}
 		</View>
