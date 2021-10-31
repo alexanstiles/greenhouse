@@ -6,15 +6,26 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React, { useRef, useEffect } from "react"
+import React, { useRef, useEffect, useState } from "react"
 import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-
+const searchResults = [
+	{ itemName: "Apple", image: require("./../../assets/images/apple.png") },
+	{ itemName: "Bananas", image: require("./../../assets/images/banana.png") },
+	{ itenName: "Oranges", image: require("./../../assets/images/orange.png") }
+];
 
 export default function SearchForFoodItem(props) {
 
-	const [text, setText] = React.useState("Useless Text")
+	const [text, setText] = useState("Useless Text")
+	const [showDatePicker, setShowDatePicker] = useState(false)
+	const [expireDate, setExpireDate] = useState()
+
+	useEffect(() => {
+		setTimeout(() => textInputSearchRef.current.focus(), 100)
+	}, []);
 
 	// const [searchResults, setSearchResults] = React.useState([])
 
@@ -78,11 +89,9 @@ export default function SearchForFoodItem(props) {
 		}
 	})
 
-	const searchResults = [
-		{ itemName: "Apple", image: require("./../../assets/images/apple.png") },
-		{ itemName: "Bananas", image: require("./../../assets/images/banana.png") },
-		{ itenName: "Oranges", image: require("./../../assets/images/orange.png")}
-	];
+	const popupDatePicker = () => {
+
+	}
 
 	const ItemView = ({ item }) => {
 		return (
@@ -91,7 +100,7 @@ export default function SearchForFoodItem(props) {
 				<View style={styles.containerImageItem}>
 					<Image style={styles.imageItem} source={item.image}></Image>
 				</View>
-				<TouchableOpacity style={styles.buttonSelect} onPress={() => alert('Feature not yet available')}>
+				<TouchableOpacity style={styles.buttonSelect} onPress={() => setShowDatePicker(!showDatePicker)}>
 					<Text style={styles.buttonSelectText}>Select</Text>
 				</TouchableOpacity>
 			</View>
@@ -113,13 +122,8 @@ export default function SearchForFoodItem(props) {
 
 	const textInputSearchRef = useRef(null)
 
-	useEffect(() => {
-		setTimeout(() => textInputSearchRef.current.focus(), 100)
-	}, []);
-
 	return (
 		<View style={styles.container}>
-			
 			<View>
 				<TextInput
 					style={styles.textInputSearch}
@@ -130,6 +134,15 @@ export default function SearchForFoodItem(props) {
 			<FlatList
 				data={searchResults}
 				renderItem={renderItem} />
+			{showDatePicker && (
+				<DateTimePicker
+					value={date}
+					mode={mode}
+					is24Hour={true}
+					display="default"
+					onChange={onChange}
+				/>
+			)}
 		</View>
 	)
 }
