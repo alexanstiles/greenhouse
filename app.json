@@ -5,7 +5,8 @@
     "privacy": "public",
     "platforms": [
       "ios",
-      "android"
+      "android",
+      "web"
     ],
     "version": "0.0.1",
     "orientation": "portrait",
