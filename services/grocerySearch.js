@@ -1,6 +1,6 @@
 import axios from 'axios'
 const baseUrl = 'https://shelf-life-api.herokuapp.com/'
-const proxy = 'https://server-al.herokuapp.com/'
+const proxy = 'https://server-al.herokuapp.com/' // CORS Bypass
 
 /**
  * 
@@ -37,8 +37,14 @@ const getShelfLife = async (itemId) => {
             "X-Requested-With": "XMLHttpRequest"
         }
     }
-    const response = await axios.request(options)
-    const shelfLife = Math.ceil((response.data[0].expirationTime)/86400)
+    let shelfLife
+    try {
+        const response = await axios.request(options)
+        shelfLife = Math.ceil((response.data[0].expirationTime)/86400)
+    } catch (e) {
+        // The API was unable to find the shelf life
+        shelfLife = null
+    }
     console.log("🚀 ~ file: grocerySearch.js ~ line 23 ~ getShelfLife ~ shelfLife", shelfLife)
     return shelfLife
 }
