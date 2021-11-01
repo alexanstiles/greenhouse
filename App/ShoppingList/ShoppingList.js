@@ -23,9 +23,9 @@ export default function ShoppingList({ data, navigation, route }) {
       <Text style={styles.listTitle}>{route.params.title}</Text>
         {route.params.items.map((shoppingItem) => {
         return (
-          <View key={shoppingItem.itemName} style={styles.listRow}>
+          <View key={shoppingItem.name} style={styles.listRow}>
             <View style={styles.flexbox}>
-              <Text>{shoppingItem.itemName}</Text>
+              <Text>{shoppingItem.name}</Text>
               <View style={[styles.flexbox, styles.alignRight]}>
                 <Image
                   source={require("./../../assets/images/trash.png")}
