@@ -7,6 +7,8 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack'
 import SearchForFoodItem from './App/SearchForFoodItem/SearchForFoodItem';
 import CreateShoppingList from './App/CreateShoppingList/CreateShoppingList';
+import ShoppingList from './App/ShoppingList/ShoppingList';
+import MyLists from './App/MyLists/MyLists'
 
 const Stack = createStackNavigator()
 
@@ -23,4 +25,18 @@ const SearchItemNavigator = () => {
     )
 }
 
-export {SearchItemNavigator}
+export { SearchItemNavigator }
+
+const ManageListNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+             name="My Lists" component={MyLists}
+            />
+            <Stack.Screen
+             name="Manage List" component={ShoppingList}
+            />
+        </Stack.Navigator>
+    )
+}
+export {ManageListNavigator}

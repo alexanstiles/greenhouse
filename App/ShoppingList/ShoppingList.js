@@ -6,11 +6,11 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
-export default function ShoppingList({ data }) {
+export default function ShoppingList({ data, navigation, route }) {
 
-  // replace this with real data later!
+  //replace this with real data later!
   const shoppingData = [
-    { itemName: "Eggs (2 Dozen" },
+    { itemName: "Eggs (2 Dozen)" },
     { itemName: "Whole Wheat Bread (2 Loaves)" },
     { itemName: "Milk (1 Gallon)" },
     { itemName: "Kiwis" },
@@ -20,7 +20,8 @@ export default function ShoppingList({ data }) {
 
   return (
     <View style={styles.shoppingListView}>
-      {shoppingData.map((shoppingItem) => {
+      <Text style={styles.listTitle}>{route.params.title}</Text>
+        {route.params.items.map((shoppingItem) => {
         return (
           <View key={shoppingItem.itemName} style={styles.listRow}>
             <View style={styles.flexbox}>
@@ -72,5 +73,9 @@ const styles = StyleSheet.create({
   },
   alignRight: {
 	  marginLeft: 'auto',
+  },
+  listTitle: {
+    fontSize: 20,
+    textAlign: 'center'
   }
 });

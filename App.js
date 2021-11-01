@@ -13,7 +13,7 @@ import MyListsTwo from "./App/MyListsTwo/MyListsTwo"
 import PopUpToAddItem from "./App/PopUpToAddItem/PopUpToAddItem"
 import React from "react"
 // import SearchForFoodItem from "./App/SearchForFoodItem/SearchForFoodItem"
-import {SearchItemNavigator} from './CustomNavigation'
+import {ManageListNavigator, SearchItemNavigator} from './CustomNavigation'
 import ShoppingList from "./App/ShoppingList/ShoppingList"
 import CreateShoppingList from "./App/CreateShoppingList/CreateShoppingList"
 import { AppLoading, DangerZone } from "expo"
@@ -101,10 +101,9 @@ export default class App extends React.Component {
 						"tabBarActiveTintColor": "green",
 					})}
 					initialRouteName="Home">
-					<rootStack.Screen name="Home" component={HomePage}  options={{ headerShown: false }}  />
-					<rootStack.Screen name="My Lists" component={MyLists} />
+					<rootStack.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
 					<rootStack.Screen name="Create List" component={SearchItemNavigator} options={{ headerShown: false }} /> 
-					<rootStack.Screen name="Manage List"component={ShoppingList} />
+					<rootStack.Screen name="My Lists" component={ManageListNavigator} options={{ headerShown: false }} />
 				</rootStack.Navigator>
 			</NavigationContainer>
 		);
