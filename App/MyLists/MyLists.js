@@ -3,7 +3,7 @@
 //  Greenhouse Designs 13-Sep-2021-145518
 //
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import EStyleSheet from 'react-native-extended-stylesheet';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ShoppingList({ data, navigation }) {
   // const navigation = useNavigation();
@@ -24,39 +25,64 @@ export default function ShoppingList({ data, navigation }) {
       title: "Sunday Lunch",
       dateCreated: "10/27/2021",
       items: [
-        { itemName: "Eggs (2 Dozen)" },
-        { itemName: "Whole Wheat Bread (2 Loaves)" },
-        { itemName: "Milk (1 Gallon)" },
-        { itemName: "Kiwis" },
-        { itemName: "Bananas" },
-        { itemName: "Apples" },
+        { name: "Eggs (2 Dozen)" },
+        { name: "Whole Wheat Bread (2 Loaves)" },
+        { name: "Milk (1 Gallon)" },
+        { name: "Kiwis" },
+        { name: "Bananas" },
+        { name: "Apples" },
       ],
     },
     {
       title: "Monday Dinner",
       dateCreated: "10/28/2021",
       items: [
-        { itemName: "Eggs (2 Dozen)" },
-        { itemName: "Whole Wheat Bread (2 Loaves)" },
-        { itemName: "Milk (1 Gallon)" },
-        { itemName: "Kiwis" },
-        { itemName: "Bananas" },
-        { itemName: "Apples" },
+        { name: "Eggs (2 Dozen)" },
+        { name: "Whole Wheat Bread (2 Loaves)" },
+        { name: "Milk (1 Gallon)" },
+        { name: "Kiwis" },
+        { name: "Bananas" },
+        { name: "Apples" },
       ],
     },
     {
       title: "Friday Party",
       dateCreated: "10/29/2021",
       items: [
-        { itemName: "Natural Light (12 pack)" },
-        { itemName: "White Claw (6 pack)" },
-        { itemName: "Ice Cream Cake" },
-        { itemName: "Kiwis" },
-        { itemName: "Bananas" },
-        { itemName: "Apples" },
+        { name: "Natural Light (12 pack)" },
+        { name: "White Claw (6 pack)" },
+        { name: "Ice Cream Cake" },
+        { name: "Kiwis" },
+        { name: "Bananas" },
+        { name: "Apples" },
       ],
     },
   ];
+
+  const getListData = async () => {
+    try {
+      return await AsyncStorage.getItem('my-list')
+    } catch (e) {
+      return e
+    }
+  }
+
+
+  useEffect(() => {
+    getListData().then((res) => {
+      const parsed = JSON.parse(res)
+      const formatted = {
+        title: "Stored list",
+        dateCreated: "10/29/2021",
+        items: parsed,
+      }
+      console.log(formatted, 'is formatted')
+      if(formatted.items) {
+        setListData([formatted])
+      }
+    })
+  }, [])
+
 
   const [listData, setListData] = useState(staticData);
 
@@ -98,8 +124,8 @@ export default function ShoppingList({ data, navigation }) {
               <Text style={{ width: "80%" }}>
                 {shoppingItem.items.map((item) => {
                   return (
-                    <View key={item.itemName}>
-                      <Text>{item.itemName}, </Text>
+                    <View key={item.name}>
+                      <Text>{item.name}, </Text>
                     </View>
                   );
                 })}
