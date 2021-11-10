@@ -95,6 +95,7 @@ export default function SearchForFoodItem(props) {
 		return (
 			<View style={styles.item}>
 				<Text style={styles.itemTitle}>{item.name}</ Text>
+				<Text style={styles.itemTitle}>Shelf Life: {item.shelfLife}</ Text>
 				<View style={styles.containerImageItem}>
 					<Image style={styles.imageItem} source={{uri: item.image}}></Image>
 				</View>

@@ -29,6 +29,11 @@ const getGroceryItems = async (itemName) => {
     groceryItems = groceryItems.slice(0, 2)
     for (const item of groceryItems) {
         item.image = await imageService.getImage(item.name)
+        item.shelfLife = await getShelfLife(item.id)
+        if (!item.shelfLife) {
+            // If no shelf life was found, set to a default of 3 days
+            item.shelfLife = 3
+        }
         await new Promise(resolve => setTimeout(resolve, 100))
     }
 
