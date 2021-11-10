@@ -91,6 +91,7 @@ export default function SearchForFoodItem(props) {
 	})
 
 	const ItemView = ({ item }) => {
+		// TODO: Find the expiration date for each item
 		return (
 			<View style={styles.item}>
 				<Text style={styles.itemTitle}>{item.name}</ Text>
