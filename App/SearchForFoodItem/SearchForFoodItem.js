@@ -7,7 +7,7 @@
 //
 
 import React, { useRef, useEffect, useState } from "react"
-import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard } from "react-native"
+import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard, Alert, Platform } from "react-native"
 import EStyleSheet from 'react-native-extended-stylesheet';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import imageService from '../../services/imageSearch'
@@ -80,7 +80,7 @@ export default function SearchForFoodItem(props) {
 			marginHorizontal: '2rem',
 
 			paddingVertical: '1rem',
-			marginVertical: '1rem',
+			marginVertical: '0.5rem',
 			marginHorizontal: '1.5rem',
 		},
 		buttonSelectText: {
@@ -90,16 +90,26 @@ export default function SearchForFoodItem(props) {
 		}
 	})
 
+	const selectItem = (item) => {
+		const message = "Item selected: " + JSON.stringify(item)
+		if (Platform.OS === "web") {
+			alert(message)
+		} else {
+			// Device is iOS or Android
+			Alert.alert(message)
+		}
+	}
+
 	const ItemView = ({ item }) => {
 		// TODO: Find the expiration date for each item
 		return (
 			<View style={styles.item}>
 				<Text style={styles.itemTitle}>{item.name}</ Text>
-				<Text style={styles.itemTitle}>Shelf Life: {item.shelfLife}</ Text>
+				<Text>Shelf Life: {item.shelfLife} days</ Text>
 				<View style={styles.containerImageItem}>
-					<Image style={styles.imageItem} source={{uri: item.image}}></Image>
+					<Image style={styles.imageItem} source={{ uri: item.image }}></Image>
 				</View>
-				<TouchableOpacity style={styles.buttonSelect} onPress={() => setShowDatePicker(!showDatePicker)}>
+				<TouchableOpacity style={styles.buttonSelect}onPress={() => selectItem(item)}>
 					<Text style={styles.buttonSelectText}>Select</Text>
 				</TouchableOpacity>
 			</View>
@@ -116,7 +126,7 @@ export default function SearchForFoodItem(props) {
 		// Retrieve search results
 		// Set search results
 		setText(text)
-		if (text.length >= 3){
+		if (text.length >= 3) {
 			setGroceryItems((await groceryService.getGroceryItems(text)))
 		}
 		// Bind search results to ItemViews, update on text change

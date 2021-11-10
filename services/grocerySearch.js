@@ -57,9 +57,11 @@ const getShelfLife = async (itemId) => {
     let shelfLife
     try {
         const response = await axios.request(options)
-        shelfLife = Math.ceil((response.data[0].expirationTime)/86400)
+        console.log("🚀 ~ file: grocerySearch.js ~ line 60 ~ getShelfLife ~ response", response)
+        shelfLife = Math.ceil((response.data.methods[0].expirationTime)/86400)
     } catch (e) {
         // The API was unable to find the shelf life
+        console.log(e)
         shelfLife = null
     }
     console.log("🚀 ~ file: grocerySearch.js ~ line 23 ~ getShelfLife ~ shelfLife", shelfLife)
