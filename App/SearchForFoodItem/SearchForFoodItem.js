@@ -103,7 +103,6 @@ export default function SearchForFoodItem({navigation, route}) {
 		navigation.navigate({
 			name: 'Create New List',
 			params: { itemName: item["name"] },
-			
 		});
 	}
 
