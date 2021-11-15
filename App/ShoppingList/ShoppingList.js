@@ -7,17 +7,6 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function ShoppingList({ data, navigation, route }) {
-
-  //replace this with real data later!
-  const shoppingData = [
-    { itemName: "Eggs (2 Dozen)" },
-    { itemName: "Whole Wheat Bread (2 Loaves)" },
-    { itemName: "Milk (1 Gallon)" },
-    { itemName: "Kiwis" },
-    { itemName: "Bananas" },
-    { itemName: "Apples" },
-  ];
-
   return (
     <View style={styles.shoppingListView}>
       <Text style={styles.listTitle}>{route.params.title}</Text>

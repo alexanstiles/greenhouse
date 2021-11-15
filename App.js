@@ -102,7 +102,7 @@ export default class App extends React.Component {
 					})}
 					initialRouteName="Home">
 					<rootStack.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
-					<rootStack.Screen name="Create List" component={SearchItemNavigator} options={{ headerShown: false }} /> 
+					<rootStack.Screen name="Create List" component={SearchItemNavigator} options={{ headerShown: false }}/>
 					<rootStack.Screen name="My Lists" component={ManageListNavigator} options={{ headerShown: false }} />
 				</rootStack.Navigator>
 			</NavigationContainer>

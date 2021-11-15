@@ -6,7 +6,7 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Image,
   StyleSheet,
@@ -30,7 +30,7 @@ StyleSheet textInputAddItem: {
 }
 
 */
-export default function CreateShoppingList(props) {
+export default function CreateShoppingList({ route }) {
   const styles = EStyleSheet.create({
     // TODO: Change the font used
     container: {
@@ -91,22 +91,30 @@ export default function CreateShoppingList(props) {
   });
 
   // TODO: Items in the array should all have an ID property assigned to them. Refactor the deleteItem() as needed.
-  const startingItems = [
-    { name: "Eggs (2 Dozen)" },
-    { name: "Whole Wheat Bread (2 Loaves)" },
-    { name: "Milk (1 Gallon)" },
-    { name: "Kiwis" },
-    { name: "Bananas" },
-    { name: "Apples" },
-  ];
+  var startingItems = [];
 
   const [items, setItems] = useState([...startingItems]);
+  // const firstUpdate = useRef(true);
+  useEffect(() => {
+    // if (firstUpdate.current) {
+    //   firstUpdate.current = false;
+    //   return;
+    // }
+    if (route.params?.itemName) {
+      items.push({ name: route.params.itemName })
+      setItems([...items])
+      // TODD: First item pushed does not display until a second item is pushed to items
+    }
+
+  }, [route.params?.itemName]);
+   
 
   const deleteItem = (name) => {
     const i = items.findIndex((item) => item.name === name);
     items.splice(i, 1);
     setItems([...items]);
   };
+  
 
   const ItemView = ({ item }) => {
     return (
@@ -136,6 +144,7 @@ export default function CreateShoppingList(props) {
     }
   };
 
+
   const navigation = useNavigation(); // useNavigation hook
 
   return (
@@ -155,6 +164,7 @@ export default function CreateShoppingList(props) {
       >
         <Text style={styles.buttonFinishedText}>Finish List</Text>
       </TouchableOpacity>
+
     </View>
   );
 }
