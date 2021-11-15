@@ -94,16 +94,11 @@ export default function CreateShoppingList({ route }) {
   var startingItems = [];
 
   const [items, setItems] = useState([...startingItems]);
-  // const firstUpdate = useRef(true);
+  
   useEffect(() => {
-    // if (firstUpdate.current) {
-    //   firstUpdate.current = false;
-    //   return;
-    // }
     if (route.params?.itemName) {
       items.push({ name: route.params.itemName })
       setItems([...items])
-      // TODD: First item pushed does not display until a second item is pushed to items
     }
 
   }, [route.params?.itemName]);
