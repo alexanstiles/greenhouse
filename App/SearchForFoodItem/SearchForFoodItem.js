@@ -12,6 +12,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import imageService from '../../services/imageSearch'
 import groceryService from '../../services/grocerySearch'
+import CreateShoppingList from "../CreateShoppingList/CreateShoppingList";
 
 const searchResults = [
 	{ itemName: "Apple", image: require("./../../assets/images/apple.png") },
@@ -19,7 +20,7 @@ const searchResults = [
 	{ itenName: "Oranges", image: require("./../../assets/images/orange.png") }
 ];
 
-export default function SearchForFoodItem(props) {
+export default function SearchForFoodItem({navigation, route}) {
 
 	const [text, setText] = useState("")
 	const [showDatePicker, setShowDatePicker] = useState(false)
@@ -91,13 +92,19 @@ export default function SearchForFoodItem(props) {
 	})
 
 	const selectItem = (item) => {
-		const message = "Item selected: " + JSON.stringify(item)
+		const message = "Item selected: " + item["name"]
 		if (Platform.OS === "web") {
 			alert(message)
 		} else {
 			// Device is iOS or Android
 			Alert.alert(message)
 		}
+		
+		navigation.navigate({
+			name: 'Create New List',
+			params: { itemName: item["name"] },
+			
+		});
 	}
 
 	const ItemView = ({ item }) => {
@@ -109,7 +116,7 @@ export default function SearchForFoodItem(props) {
 				<View style={styles.containerImageItem}>
 					<Image style={styles.imageItem} source={{ uri: item.image }}></Image>
 				</View>
-				<TouchableOpacity style={styles.buttonSelect}onPress={() => selectItem(item)}>
+				<TouchableOpacity style={styles.buttonSelect} onPress={() => selectItem(item)}>
 					<Text style={styles.buttonSelectText}>Select</Text>
 				</TouchableOpacity>
 			</View>
