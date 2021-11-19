@@ -6,171 +6,188 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React, { useRef, useEffect, useState } from "react"
-import { Image, StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Keyboard, Alert, Platform } from "react-native"
-import EStyleSheet from 'react-native-extended-stylesheet';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import imageService from '../../services/imageSearch'
-import groceryService from '../../services/grocerySearch'
+import React, { useRef, useEffect, useState } from "react";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  TextInput,
+  Keyboard,
+  Alert,
+  Platform,
+} from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import imageService from "../../services/imageSearch";
+import groceryService from "../../services/grocerySearch";
 import CreateShoppingList from "../CreateShoppingList/CreateShoppingList";
 
 const searchResults = [
-	{ itemName: "Apple", image: require("./../../assets/images/apple.png") },
-	{ itemName: "Bananas", image: require("./../../assets/images/banana.png") },
-	{ itenName: "Oranges", image: require("./../../assets/images/orange.png") }
+  { itemName: "Apple", image: require("./../../assets/images/apple.png") },
+  { itemName: "Bananas", image: require("./../../assets/images/banana.png") },
+  { itenName: "Oranges", image: require("./../../assets/images/orange.png") },
 ];
 
-export default function SearchForFoodItem({navigation, route}) {
+export default function SearchForFoodItem({ navigation, route }) {
+  const [text, setText] = useState("");
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [expireDate, setExpireDate] = useState(new Date());
+  const [groceryItems, setGroceryItems] = useState([]);
 
-	const [text, setText] = useState("")
-	const [showDatePicker, setShowDatePicker] = useState(false)
-	const [expireDate, setExpireDate] = useState(new Date())
-	const [groceryItems, setGroceryItems] = useState([])
+  useEffect(() => {
+    setTimeout(() => textInputSearchRef.current.focus(), 100);
+  }, []);
 
-	useEffect(() => {
-		setTimeout(() => textInputSearchRef.current.focus(), 100)
-	}, [])
+  const styles = EStyleSheet.create({
+    pageTitle: {
+      fontSize: "2rem",
+      textAlign: "center",
+      fontWeight: "bold",
+    },
+    container: {
+      flex: 1,
+      flexDirection: "column",
+      fontSize: "1rem",
+      marginHorizontal: "1rem",
+    },
+    item: {
+      flex: 1,
+      flexDirection: "column",
+      justifyContent: "flex-start",
 
-	const styles = EStyleSheet.create({
-		pageTitle: {
-			fontSize: '2rem',
-			textAlign: 'center',
-			fontWeight: 'bold'
-		},
-		container: {
-			flex: 1,
-			flexDirection: 'column',
-			fontSize: '1rem',
-			marginHorizontal: '1rem',
-		},
-		item: {
-			flex: 1,
-			flexDirection: 'column',
-			justifyContent: 'flex-start',
+      paddingVertical: "1rem",
 
-			paddingVertical: "1rem",
+      borderBottomWidth: 1,
+      borderBottomColor: "lightgray",
+    },
+    itemTitle: {
+      fontWeight: "bold",
+    },
+    containerImageItem: {
+      height: "8rem",
+      width: "8rem",
+      alignSelf: "center",
+    },
+    imageItem: {
+      width: "100%",
+      height: "100%",
+      resizeMode: "contain",
+    },
+    textInputSearch: {
+      borderWidth: 3,
+      borderColor: "lightgray",
+      borderRadius: 100,
+      marginVertical: "1rem",
+      marginHorizontal: "1.5rem",
+      paddingVertical: "1rem",
+      paddingHorizontal: "1rem",
+    },
+    buttonSelect: {
+      backgroundColor: "#0071dbfa",
+      borderRadius: 100,
+      marginHorizontal: "2rem",
 
-			borderBottomWidth: 1,
-			borderBottomColor: 'lightgray',
-		},
-		itemTitle: {
-			fontWeight: "bold"
-		},
-		containerImageItem: {
-			height: "8rem",
-			width: "8rem",
-			alignSelf: "center"
-		},
-		imageItem: {
-			width: "100%",
-			height: "100%",
-			resizeMode: "contain",
-		},
-		textInputSearch: {
-			borderWidth: 3,
-			borderColor: 'lightgray',
-			borderRadius: 100,
-			marginVertical: '1rem',
-			marginHorizontal: '1.5rem',
-			paddingVertical: '1rem',
-			paddingHorizontal: '1rem'
-		},
-		buttonSelect: {
-			backgroundColor: '#0071dbfa',
-			borderRadius: 100,
-			marginHorizontal: '2rem',
+      paddingVertical: "1rem",
+      marginVertical: "0.5rem",
+      marginHorizontal: "1.5rem",
+    },
+    buttonSelectText: {
+      color: "white",
+      alignSelf: "center",
+      fontSize: "1rem",
+    },
+  });
 
-			paddingVertical: '1rem',
-			marginVertical: '0.5rem',
-			marginHorizontal: '1.5rem',
-		},
-		buttonSelectText: {
-			color: 'white',
-			alignSelf: 'center',
-			fontSize: '1rem'
-		}
-	})
+  const selectItem = (item) => {
+    const message = "Item selected: " + item["name"];
+    if (Platform.OS === "web") {
+      alert(message);
+    } else {
+      // Device is iOS or Android
+      Alert.alert(message);
+    }
 
-	const selectItem = (item) => {
-		const message = "Item selected: " + item["name"]
-		if (Platform.OS === "web") {
-			alert(message)
-		} else {
-			// Device is iOS or Android
-			Alert.alert(message)
-		}
-		
-		navigation.navigate({
-			name: 'Create New List',
-			params: { itemName: item["name"] },
-		});
-	}
+    navigation.navigate({
+      name: "Create New List",
+      params: { itemName: item["name"] },
+    });
+  };
 
-	const ItemView = ({ item }) => {
-		// TODO: Find the expiration date for each item
-		return (
-			<View style={styles.item}>
-				<Text style={styles.itemTitle}>{item.name}</ Text>
-				<Text>Shelf Life: {item.shelfLife} days</ Text>
-				<View style={styles.containerImageItem}>
-					<Image style={styles.imageItem} source={{ uri: item.image }}></Image>
-				</View>
-				<TouchableOpacity style={styles.buttonSelect} onPress={() => selectItem(item)}>
-					<Text style={styles.buttonSelectText}>Select</Text>
-				</TouchableOpacity>
-			</View>
-		)
-	}
+  const ItemView = ({ item }) => {
+    // TODO: Find the expiration date for each item
+    return (
+      <View style={styles.item}>
+        <Text style={styles.itemTitle}>{item.name}</Text>
+        <Text>Shelf Life: {item.shelfLife} days</Text>
+        <View style={styles.containerImageItem}>
+          <Image style={styles.imageItem} source={{ uri: item.image }}></Image>
+        </View>
+        <TouchableOpacity
+          style={styles.buttonSelect}
+          onPress={() => selectItem(item)}
+        >
+          <Text style={styles.buttonSelectText}>Select</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
-	const renderItem = ({ item }) => {
-		return (
-			<ItemView item={item}></ItemView>
-		)
-	}
+  const renderItem = ({ item }) => {
+    return <ItemView item={item}></ItemView>;
+  };
 
-	const handleTextChange = async (text) => {
-		// Retrieve search results
-		// Set search results
-		setText(text)
-		if (text.length >= 3) {
-			setGroceryItems((await groceryService.getGroceryItems(text)))
-		}
-		// Bind search results to ItemViews, update on text change
-	}
+  const handleTextChange = async (text) => {
+    // Retrieve search results
+    // Set search results
+    setText(text);
+    if (text.length >= 3) {
+      setGroceryItems(await groceryService.getGroceryItems(text));
+    }
+    // Bind search results to ItemViews, update on text change
+  };
 
-	const handleDateSelect = (event, selectedDate) => {
-		const date = selectedDate || expireDate
-		setExpireDate(date)
-		setShowDatePicker(false)
-		// TODO: Close the search page, and add to the user's list the selected item and its expiration date
-		console.log("🚀 ~ file: SearchForFoodItem.js ~ line 126 ~ handleDateSelect ~ expireDate", date)
-	}
+  const handleDateSelect = (event, selectedDate) => {
+    const date = selectedDate || expireDate;
+    setExpireDate(date);
+    setShowDatePicker(false);
+    // TODO: Close the search page, and add to the user's list the selected item and its expiration date
+    console.log(
+      "🚀 ~ file: SearchForFoodItem.js ~ line 126 ~ handleDateSelect ~ expireDate",
+      date
+    );
+  };
 
-	const textInputSearchRef = useRef(null)
+  const textInputSearchRef = useRef(null);
 
-	return (
-		<View style={styles.container}>
-			<View>
-				<TextInput
-					style={styles.textInputSearch}
-					onChangeText={handleTextChange}
-					value={text}
-					placeholder="Enter an item name..."
-					ref={textInputSearchRef}
-				/>
-			</View>
-			<FlatList
-				data={groceryItems}
-				renderItem={renderItem} />
-			{showDatePicker && (
-				<DateTimePicker
-					value={expireDate}
-					mode="date"
-					is24Hour={true}
-					display="default"
-					onChange={handleDateSelect}
-				/>
-			)}
-		</View>
-	)
+  return (
+    <View style={styles.container}>
+      <View>
+        <TextInput
+          style={styles.textInputSearch}
+          onChangeText={handleTextChange}
+          value={text}
+          placeholder="Enter an item name..."
+          ref={textInputSearchRef}
+        />
+      </View>
+      {groceryItems.length === 0 ? (
+        <Text>No results for current search</Text>
+      ) : (
+        <FlatList data={groceryItems} renderItem={renderItem} />
+      )}
+
+      {showDatePicker && (
+        <DateTimePicker
+          value={expireDate}
+          mode="date"
+          is24Hour={true}
+          display="default"
+          onChange={handleDateSelect}
+        />
+      )}
+    </View>
+  );
 }

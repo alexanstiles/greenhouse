@@ -22,16 +22,17 @@ export default function ShoppingList({ data, navigation }) {
 
   const getListData = async () => {
     try {
-      return await AsyncStorage.getItem("my-list");
+      return await AsyncStorage.getItem("my-lists");
     } catch (e) {
       return e;
     }
   };
+  
 
   useEffect(() => {
     getListData().then((res) => {
       let parsed = JSON.parse(res);
-      if(parsed.length === undefined) {
+      if(!parsed || parsed.length === undefined) {
         parsed = []
       }
       setListData(parsed);

@@ -120,11 +120,13 @@ export default function CreateShoppingList({ route }) {
     setItems([...items]);
   };
 
-
   // custom alert
   const customAlert = (title, message, destination = false) =>
     Alert.alert(title, message, [
-      { text: "OK", onPress: () => destination? navigation.navigate(destination): null },
+      {
+        text: "OK",
+        onPress: () => (destination ? navigation.navigate(destination) : null),
+      },
     ]);
 
   const ItemView = ({ item }) => {
@@ -147,11 +149,11 @@ export default function CreateShoppingList({ route }) {
 
   const getListData = async () => {
     try {
-      return await AsyncStorage.getItem('my-list')
+      return await AsyncStorage.getItem("my-lists");
     } catch (e) {
-      return e
+      return e;
     }
-  }
+  };
 
   const listToMemory = async () => {
     if (!title || items.length === 0) {
@@ -166,17 +168,24 @@ export default function CreateShoppingList({ route }) {
           dateCreated: new Date().toDateString(),
           items: items,
         };
-        let firstSet = false
-        let storedItems = []
+        let storedItems = [];
         getListData().then((res) => {
-          const parsed = JSON.parse(res)
-          if(parsed !== "" && parsed) {
-            storedItems = parsed
+          console.log(res);
+          const parsed = JSON.parse(res);
+          if (parsed !== "" && parsed) {
+            storedItems = parsed;
           }
-          storedItems.push(formatted)
-        })
-        await AsyncStorage.setItem("my-lists", storedItems);
-        customAlert("List saved!", 'Click OK to visit your lists', "My Lists");
+          console.log(storedItems, "is stored items");
+          storedItems.push(formatted);
+          const stringItems = JSON.stringify(storedItems);
+          AsyncStorage.setItem("my-lists", stringItems);
+        }).then((res) => {
+          customAlert(
+            "List saved!",
+            "Click OK to visit your lists",
+            "My Lists"
+          );
+        });
       } catch (e) {
         console.log(e);
       }
@@ -193,7 +202,7 @@ export default function CreateShoppingList({ route }) {
           placeholder="Enter title here..."
         />
       </SafeAreaView>
-      <FlatList data={items} renderItem={renderItem} />
+      <FlatList style={styles.list} data={items} renderItem={renderItem} />
       <TouchableOpacity
         style={styles.buttonFinished}
         onPress={() => {

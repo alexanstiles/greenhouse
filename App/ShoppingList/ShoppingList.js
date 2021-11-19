@@ -14,7 +14,7 @@ export default function ShoppingList({ data, navigation, route }) {
         return (
           <View key={shoppingItem.name} style={styles.listRow}>
             <View style={styles.flexbox}>
-              <Text>{shoppingItem.name}</Text>
+              <Text style={styles.maxWidth}>{shoppingItem.name}</Text>
               <View style={[styles.flexbox, styles.alignRight]}>
                 <Image
                   source={require("./../../assets/images/trash.png")}
@@ -37,6 +37,9 @@ export default function ShoppingList({ data, navigation, route }) {
 const styles = StyleSheet.create({
   listRow: {
     padding: 0,
+  },
+  maxWidth: {
+    maxWidth: 250,
   },
   hr: {
     borderBottomColor: "#E8E8E8",

@@ -13,7 +13,7 @@ const getImage = async (itemName) => {
         }
     }
     const response = await axios.request(options)
-    const imageUrl = response.data.value[0].thumbnailUrl
+    const imageUrl = response.data?.value[0]?.thumbnailUrl
     console.log("🚀 ~ file: imageSearch.js ~ line 21 ~ getImage ~ imageUrl", imageUrl)
     return imageUrl
 }
