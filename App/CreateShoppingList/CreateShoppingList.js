@@ -16,6 +16,8 @@ import {
   TouchableOpacity,
   TextInput,
   Keyboard,
+  SafeAreaView,
+  Alert,
 } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { useNavigation } from "@react-navigation/native";
@@ -88,28 +90,42 @@ export default function CreateShoppingList({ route }) {
       alignSelf: "center",
       fontSize: "1.1rem",
     },
+    input: {
+      fontSize: 24,
+      margin: "auto",
+      marginTop: 20,
+      backgroundColor: "white",
+      borderRadius: 8,
+      padding: 20,
+    },
   });
 
   // TODO: Items in the array should all have an ID property assigned to them. Refactor the deleteItem() as needed.
   var startingItems = [];
 
   const [items, setItems] = useState([...startingItems]);
-  
+  const [title, setTitle] = useState(null);
+  const navigation = useNavigation(); // useNavigation hook
+
   useEffect(() => {
     if (route.params?.itemName) {
-      items.push({ name: route.params.itemName })
-      setItems([...items])
+      items.push({ name: route.params.itemName });
+      setItems([...items]);
     }
-
   }, [route.params?.itemName]);
-   
 
   const deleteItem = (name) => {
     const i = items.findIndex((item) => item.name === name);
     items.splice(i, 1);
     setItems([...items]);
   };
-  
+
+
+  // custom alert
+  const customAlert = (title, message, destination = false) =>
+    Alert.alert(title, message, [
+      { text: "OK", onPress: () => destination? navigation.navigate(destination): null },
+    ]);
 
   const ItemView = ({ item }) => {
     return (
@@ -129,21 +145,54 @@ export default function CreateShoppingList({ route }) {
     return <ItemView item={item}></ItemView>;
   };
 
-  const listToMemory = async () => {
+  const getListData = async () => {
     try {
-	  const stringItems = JSON.stringify(items)
-      await AsyncStorage.setItem('my-list', stringItems);
-	  alert('List saved!')
+      return await AsyncStorage.getItem('my-list')
     } catch (e) {
-      console.log(e);
+      return e
+    }
+  }
+
+  const listToMemory = async () => {
+    if (!title || items.length === 0) {
+      customAlert(
+        "Fields required",
+        "Please make sure you have entered a title and selected items for your list"
+      );
+    } else {
+      try {
+        const formatted = {
+          title: title,
+          dateCreated: new Date().toDateString(),
+          items: items,
+        };
+        let firstSet = false
+        let storedItems = []
+        getListData().then((res) => {
+          const parsed = JSON.parse(res)
+          if(parsed !== "" && parsed) {
+            storedItems = parsed
+          }
+          storedItems.push(formatted)
+        })
+        await AsyncStorage.setItem("my-lists", storedItems);
+        customAlert("List saved!", 'Click OK to visit your lists', "My Lists");
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
-
-  const navigation = useNavigation(); // useNavigation hook
-
   return (
     <View style={styles.container}>
+      <SafeAreaView>
+        <TextInput
+          style={styles.input}
+          onChangeText={(e) => setTitle(e)}
+          value={title}
+          placeholder="Enter title here..."
+        />
+      </SafeAreaView>
       <FlatList data={items} renderItem={renderItem} />
       <TouchableOpacity
         style={styles.buttonFinished}
@@ -159,7 +208,6 @@ export default function CreateShoppingList({ route }) {
       >
         <Text style={styles.buttonFinishedText}>Finish List</Text>
       </TouchableOpacity>
-
     </View>
   );
 }
