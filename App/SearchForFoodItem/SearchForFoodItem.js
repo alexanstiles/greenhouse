@@ -6,7 +6,7 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react"
 import {
   Image,
   StyleSheet,
@@ -18,24 +18,16 @@ import {
   Keyboard,
   Alert,
   Platform,
+  ActivityIndicator
 } from "react-native";
-import EStyleSheet from "react-native-extended-stylesheet";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import imageService from "../../services/imageSearch";
-import groceryService from "../../services/grocerySearch";
-import CreateShoppingList from "../CreateShoppingList/CreateShoppingList";
-
-const searchResults = [
-  { itemName: "Apple", image: require("./../../assets/images/apple.png") },
-  { itemName: "Bananas", image: require("./../../assets/images/banana.png") },
-  { itenName: "Oranges", image: require("./../../assets/images/orange.png") },
-];
+import EStyleSheet from "react-native-extended-stylesheet"
+import groceryService from "../../services/grocerySearch"
 
 export default function SearchForFoodItem({ navigation, route }) {
   const [text, setText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [expireDate, setExpireDate] = useState(new Date());
   const [groceryItems, setGroceryItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setTimeout(() => textInputSearchRef.current.focus(), 100);
@@ -99,6 +91,14 @@ export default function SearchForFoodItem({ navigation, route }) {
       alignSelf: "center",
       fontSize: "1rem",
     },
+    loadingAnimationContainer: {
+      marginTop: "24rem",
+      alignSelf: "center",
+    },
+    loadingAnimation: {
+      width: 100,
+      height: 100
+    }
   });
 
   const selectItem = (item) => {
@@ -117,7 +117,6 @@ export default function SearchForFoodItem({ navigation, route }) {
   };
 
   const ItemView = ({ item }) => {
-    // TODO: Find the expiration date for each item
     return (
       <View style={styles.item}>
         <Text style={styles.itemTitle}>{item.name}</Text>
@@ -144,13 +143,33 @@ export default function SearchForFoodItem({ navigation, route }) {
     // Set search results
     setText(text);
     if (text.length >= 3) {
-
-      setGroceryItems(await groceryService.getGroceryItems(text));
+      setIsLoading(true)
+      groceryService.getGroceryItems(text).then(items => {
+        setGroceryItems(items)
+        setIsLoading(false)
+      })
     }
     // Bind search results to ItemViews, update on text change
   };
 
   const textInputSearchRef = useRef(null);
+
+  const SearchResults = (props) => {
+    if (groceryItems.length < 2) {
+      return <Text>No results for current search</Text>
+    } else if (isLoading) {
+      return (
+        <View style={styles.loadingAnimationContainer}>
+          <ActivityIndicator size="large" />
+        </View>
+      )
+    }
+    return (
+      <View>
+        <FlatList data={groceryItems} renderItem={renderItem} />
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
@@ -163,11 +182,7 @@ export default function SearchForFoodItem({ navigation, route }) {
           ref={textInputSearchRef}
         />
       </View>
-      {groceryItems.length < 3 ? (
-        <Text>No results for current search</Text>
-      ) : (
-        <FlatList data={groceryItems} renderItem={renderItem} />
-      )}
+      <SearchResults />
     </View>
-  );
+  )
 }
