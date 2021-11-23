@@ -20,10 +20,8 @@ import {
   Platform,
 } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import imageService from "../../services/imageSearch";
 import groceryService from "../../services/grocerySearch";
-import CreateShoppingList from "../CreateShoppingList/CreateShoppingList";
+import BouncingPreloader from 'react-native-bouncing-preloaders';
 
 const searchResults = [
   { itemName: "Apple", image: require("./../../assets/images/apple.png") },
@@ -34,8 +32,8 @@ const searchResults = [
 export default function SearchForFoodItem({ navigation, route }) {
   const [text, setText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [expireDate, setExpireDate] = useState(new Date());
   const [groceryItems, setGroceryItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setTimeout(() => textInputSearchRef.current.focus(), 100);
@@ -99,6 +97,9 @@ export default function SearchForFoodItem({ navigation, route }) {
       alignSelf: "center",
       fontSize: "1rem",
     },
+    loadingScreen: {
+      alignSelf: "center",
+    }
   });
 
   const selectItem = (item) => {
@@ -117,7 +118,6 @@ export default function SearchForFoodItem({ navigation, route }) {
   };
 
   const ItemView = ({ item }) => {
-    // TODO: Find the expiration date for each item
     return (
       <View style={styles.item}>
         <Text style={styles.itemTitle}>{item.name}</Text>
@@ -144,13 +144,41 @@ export default function SearchForFoodItem({ navigation, route }) {
     // Set search results
     setText(text);
     if (text.length >= 3) {
-
-      setGroceryItems(await groceryService.getGroceryItems(text));
+      setIsLoading(true)
+      groceryService.getGroceryItems(text).then(items => {
+        setGroceryItems(items)
+        setIsLoading(false)
+      })
     }
     // Bind search results to ItemViews, update on text change
   };
 
   const textInputSearchRef = useRef(null);
+
+  const SearchResults = (props) => {
+
+    console.log("🚀 ~ file: SearchForFoodItem.js ~ line 159 ~ SearchResults ~ groceryItems.length", groceryItems.length)
+    if (groceryItems.length < 2) {
+      return <Text>No results for current search</Text>
+    } else if (isLoading) {
+      return (
+        <View>
+          <BouncingPreloader
+            icons={[
+              'https://www.shareicon.net/data/256x256/2016/05/04/759946_bar_512x512.png',
+              null,
+            ]}
+          >
+          </BouncingPreloader>
+        </View>
+      )
+    }
+    return (
+      <View>
+        <FlatList data={groceryItems} renderItem={renderItem} />
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
@@ -163,11 +191,7 @@ export default function SearchForFoodItem({ navigation, route }) {
           ref={textInputSearchRef}
         />
       </View>
-      {groceryItems.length < 3 ? (
-        <Text>No results for current search</Text>
-      ) : (
-        <FlatList data={groceryItems} renderItem={renderItem} />
-      )}
+      <SearchResults />
     </View>
-  );
+  )
 }
