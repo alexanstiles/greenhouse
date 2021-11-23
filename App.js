@@ -78,8 +78,13 @@ export default class App extends React.Component {
 	}
 
 	render() {
+		const styles = EStyleSheet.create({
+			navigationContainer: {
+				backgroundColor: "#ffffff"
+			}
+		})
 		return (
-			<NavigationContainer>
+			<NavigationContainer style={styles.navigationContainer}>
 				<rootStack.Navigator
 					screenOptions={({route}) => ({
 						tabBarIcon: ({ focused, color, size }) => {

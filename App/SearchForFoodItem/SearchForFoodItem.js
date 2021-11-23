@@ -23,12 +23,6 @@ import {
 import EStyleSheet from "react-native-extended-stylesheet"
 import groceryService from "../../services/grocerySearch"
 
-const searchResults = [
-  { itemName: "Apple", image: require("./../../assets/images/apple.png") },
-  { itemName: "Bananas", image: require("./../../assets/images/banana.png") },
-  { itenName: "Oranges", image: require("./../../assets/images/orange.png") },
-];
-
 export default function SearchForFoodItem({ navigation, route }) {
   const [text, setText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -163,14 +157,18 @@ export default function SearchForFoodItem({ navigation, route }) {
   const SearchResults = (props) => {
     if (groceryItems.length < 2) {
       return <Text>No results for current search</Text>
-    } else {
+    } else if (isLoading) {
       return (
         <View style={styles.loadingAnimationContainer}>
           <ActivityIndicator size="large" />
         </View>
       )
     }
-
+    return (
+      <View>
+        <FlatList data={groceryItems} renderItem={renderItem} />
+      </View>
+    )
   }
 
   return (
