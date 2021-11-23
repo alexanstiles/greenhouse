@@ -160,7 +160,7 @@ export default function SearchForFoodItem({ navigation, route }) {
     console.log("🚀 ~ file: SearchForFoodItem.js ~ line 159 ~ SearchResults ~ groceryItems.length", groceryItems.length)
     if (groceryItems.length < 2) {
       return <Text>No results for current search</Text>
-    } else if (isLoading) {
+    } else {
       return (
         <View>
           <BouncingPreloader
@@ -173,11 +173,7 @@ export default function SearchForFoodItem({ navigation, route }) {
         </View>
       )
     }
-    return (
-      <View>
-        <FlatList data={groceryItems} renderItem={renderItem} />
-      </View>
-    )
+    
   }
 
   return (
