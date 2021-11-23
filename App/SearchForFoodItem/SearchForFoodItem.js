@@ -6,7 +6,7 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react"
 import {
   Image,
   StyleSheet,
@@ -18,10 +18,10 @@ import {
   Keyboard,
   Alert,
   Platform,
+  ActivityIndicator
 } from "react-native";
-import EStyleSheet from "react-native-extended-stylesheet";
-import groceryService from "../../services/grocerySearch";
-import BouncingPreloader from 'react-native-bouncing-preloaders';
+import EStyleSheet from "react-native-extended-stylesheet"
+import groceryService from "../../services/grocerySearch"
 
 const searchResults = [
   { itemName: "Apple", image: require("./../../assets/images/apple.png") },
@@ -97,8 +97,13 @@ export default function SearchForFoodItem({ navigation, route }) {
       alignSelf: "center",
       fontSize: "1rem",
     },
-    loadingScreen: {
+    loadingAnimationContainer: {
+      marginTop: "24rem",
       alignSelf: "center",
+    },
+    loadingAnimation: {
+      width: 100,
+      height: 100
     }
   });
 
@@ -156,24 +161,16 @@ export default function SearchForFoodItem({ navigation, route }) {
   const textInputSearchRef = useRef(null);
 
   const SearchResults = (props) => {
-
-    console.log("🚀 ~ file: SearchForFoodItem.js ~ line 159 ~ SearchResults ~ groceryItems.length", groceryItems.length)
     if (groceryItems.length < 2) {
       return <Text>No results for current search</Text>
     } else {
       return (
-        <View>
-          <BouncingPreloader
-            icons={[
-              'https://www.shareicon.net/data/256x256/2016/05/04/759946_bar_512x512.png',
-              null,
-            ]}
-          >
-          </BouncingPreloader>
+        <View style={styles.loadingAnimationContainer}>
+          <ActivityIndicator size="large" />
         </View>
       )
     }
-    
+
   }
 
   return (
