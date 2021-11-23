@@ -155,8 +155,8 @@ export default function SearchForFoodItem({ navigation, route }) {
   const textInputSearchRef = useRef(null);
 
   const SearchResults = (props) => {
-    if (groceryItems.length < 2) {
-      return <Text>No results for current search</Text>
+    if (text.length < 3) {
+      return <Text style={{fontWeight: "bold", alignSelf: "center", marginTop: 16}}>No results for current search</Text>
     } else if (isLoading) {
       return (
         <View style={styles.loadingAnimationContainer}>
