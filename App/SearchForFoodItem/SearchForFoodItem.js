@@ -144,20 +144,10 @@ export default function SearchForFoodItem({ navigation, route }) {
     // Set search results
     setText(text);
     if (text.length >= 3) {
+
       setGroceryItems(await groceryService.getGroceryItems(text));
     }
     // Bind search results to ItemViews, update on text change
-  };
-
-  const handleDateSelect = (event, selectedDate) => {
-    const date = selectedDate || expireDate;
-    setExpireDate(date);
-    setShowDatePicker(false);
-    // TODO: Close the search page, and add to the user's list the selected item and its expiration date
-    console.log(
-      "🚀 ~ file: SearchForFoodItem.js ~ line 126 ~ handleDateSelect ~ expireDate",
-      date
-    );
   };
 
   const textInputSearchRef = useRef(null);
@@ -173,20 +163,10 @@ export default function SearchForFoodItem({ navigation, route }) {
           ref={textInputSearchRef}
         />
       </View>
-      {groceryItems.length === 0 ? (
+      {groceryItems.length < 3 ? (
         <Text>No results for current search</Text>
       ) : (
         <FlatList data={groceryItems} renderItem={renderItem} />
-      )}
-
-      {showDatePicker && (
-        <DateTimePicker
-          value={expireDate}
-          mode="date"
-          is24Hour={true}
-          display="default"
-          onChange={handleDateSelect}
-        />
       )}
     </View>
   );
