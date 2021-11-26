@@ -7,6 +7,18 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function ShoppingList({ data, navigation, route }) {
+  
+  function isExpired(shelfLife, itemName) {
+    var currentDate = new Date();
+    var prevDate = new Date(route.params.dateCreated);
+    var difference_in_time = currentDate.getTime() - prevDate.getTime();
+    var difference_in_days = difference_in_time / (1000 * 3600 * 24);
+    if (difference_in_days > shelfLife) {
+      return <Text style={styles.expired}>{itemName}   Expired</Text>
+    }
+    return <Text style={styles.maxWidth}> {itemName}</Text>
+  }
+
   return (
     <View style={styles.shoppingListView}>
       <Text style={styles.listTitle}>{route.params.title}</Text>
@@ -14,7 +26,7 @@ export default function ShoppingList({ data, navigation, route }) {
         return (
           <View key={shoppingItem.name} style={styles.listRow}>
             <View style={styles.flexbox}>
-              <Text style={styles.maxWidth}>{shoppingItem.name}</Text>
+              {isExpired(shoppingItem.shelfLife, shoppingItem.name)}
               <View style={[styles.flexbox, styles.alignRight]}>
                 <Image
                   source={require("./../../assets/images/trash.png")}
@@ -40,6 +52,11 @@ const styles = StyleSheet.create({
   },
   maxWidth: {
     maxWidth: 250,
+  },
+  expired: {
+    maxWidth: 250,
+    color: "red",
+    fontWeight: "bold",
   },
   hr: {
     borderBottomColor: "#E8E8E8",
