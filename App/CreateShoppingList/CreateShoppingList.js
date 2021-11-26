@@ -109,7 +109,7 @@ export default function CreateShoppingList({ route }) {
 
   useEffect(() => {
     if (route.params?.itemName) {
-      items.push({ name: route.params.itemName });
+      items.push({ name: route.params.itemName, shelfLife: route.params.itemShelf });
       setItems([...items]);
     }
   }, [route.params?.itemName]);
@@ -165,7 +165,7 @@ export default function CreateShoppingList({ route }) {
       try {
         const formatted = {
           title: title,
-          dateCreated: new Date().toDateString(),
+          dateCreated: new Date(),
           items: items,
         };
         let storedItems = [];

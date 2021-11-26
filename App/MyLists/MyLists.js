@@ -74,7 +74,7 @@ export default function ShoppingList({ data, navigation }) {
               <View style={styles.flexbox}>
                 <Text style={styles.titlestyles}>{shoppingItem.title}</Text>
                 <Text style={{ marginLeft: "auto" }}>
-                  {shoppingItem.dateCreated}
+                  {new Date(shoppingItem.dateCreated).toDateString()}
                 </Text>
               </View>
               <View style={styles.flexbox}>
