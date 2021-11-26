@@ -78,11 +78,11 @@ export default function ShoppingList({ data, navigation }) {
                 </Text>
               </View>
               <View style={styles.flexbox}>
-                <Text style={{ width: "80%" }}>
+                <Text style={{ width: "80%",}}>
                   {shoppingItem.items.map((item) => {
                     return (
                       <View key={item.name}>
-                        <Text>{item.name}, </Text>
+                        <Text style={{ maxWidth: 250,}}>{item.name}, </Text>
                       </View>
                     );
                   })}
