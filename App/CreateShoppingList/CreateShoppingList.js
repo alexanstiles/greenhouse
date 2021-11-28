@@ -170,12 +170,10 @@ export default function CreateShoppingList({ route }) {
         };
         let storedItems = [];
         getListData().then((res) => {
-          console.log(res);
           const parsed = JSON.parse(res);
           if (parsed !== "" && parsed) {
             storedItems = parsed;
           }
-          console.log(storedItems, "is stored items");
           storedItems.push(formatted);
           const stringItems = JSON.stringify(storedItems);
           AsyncStorage.setItem("my-lists", stringItems);

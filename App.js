@@ -9,8 +9,6 @@
 import * as Font from "expo-font"
 import HomePage from "./App/HomePage/HomePage"
 import MyLists from "./App/MyLists/MyLists"
-import MyListsTwo from "./App/MyListsTwo/MyListsTwo"
-import PopUpToAddItem from "./App/PopUpToAddItem/PopUpToAddItem"
 import React from "react"
 // import SearchForFoodItem from "./App/SearchForFoodItem/SearchForFoodItem"
 import {ManageListNavigator, SearchItemNavigator} from './CustomNavigation'
