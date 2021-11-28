@@ -6,7 +6,7 @@
 //  Copyright © 2018 [Company]. All rights reserved.
 //
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react"
 import {
   Image,
   StyleSheet,
@@ -18,24 +18,16 @@ import {
   Keyboard,
   Alert,
   Platform,
+  ActivityIndicator
 } from "react-native";
-import EStyleSheet from "react-native-extended-stylesheet";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import imageService from "../../services/imageSearch";
-import groceryService from "../../services/grocerySearch";
-import CreateShoppingList from "../CreateShoppingList/CreateShoppingList";
-
-const searchResults = [
-  { itemName: "Apple", image: require("./../../assets/images/apple.png") },
-  { itemName: "Bananas", image: require("./../../assets/images/banana.png") },
-  { itenName: "Oranges", image: require("./../../assets/images/orange.png") },
-];
+import EStyleSheet from "react-native-extended-stylesheet"
+import groceryService from "../../services/grocerySearch"
 
 export default function SearchForFoodItem({ navigation, route }) {
   const [text, setText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [expireDate, setExpireDate] = useState(new Date());
   const [groceryItems, setGroceryItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setTimeout(() => textInputSearchRef.current.focus(), 100);
@@ -99,6 +91,14 @@ export default function SearchForFoodItem({ navigation, route }) {
       alignSelf: "center",
       fontSize: "1rem",
     },
+    loadingAnimationContainer: {
+      marginTop: "24rem",
+      alignSelf: "center",
+    },
+    loadingAnimation: {
+      width: 100,
+      height: 100
+    }
   });
 
   const selectItem = (item) => {
@@ -112,12 +112,11 @@ export default function SearchForFoodItem({ navigation, route }) {
 
     navigation.navigate({
       name: "Create New List",
-      params: { itemName: item["name"] },
+      params: { itemName: item["name"], itemShelf: item.shelfLife },
     });
   };
 
   const ItemView = ({ item }) => {
-    // TODO: Find the expiration date for each item
     return (
       <View style={styles.item}>
         <Text style={styles.itemTitle}>{item.name}</Text>
@@ -144,23 +143,33 @@ export default function SearchForFoodItem({ navigation, route }) {
     // Set search results
     setText(text);
     if (text.length >= 3) {
-      setGroceryItems(await groceryService.getGroceryItems(text));
+      setIsLoading(true)
+      groceryService.getGroceryItems(text).then(items => {
+        setGroceryItems(items)
+        setIsLoading(false)
+      })
     }
     // Bind search results to ItemViews, update on text change
   };
 
-  const handleDateSelect = (event, selectedDate) => {
-    const date = selectedDate || expireDate;
-    setExpireDate(date);
-    setShowDatePicker(false);
-    // TODO: Close the search page, and add to the user's list the selected item and its expiration date
-    console.log(
-      "🚀 ~ file: SearchForFoodItem.js ~ line 126 ~ handleDateSelect ~ expireDate",
-      date
-    );
-  };
-
   const textInputSearchRef = useRef(null);
+
+  const SearchResults = (props) => {
+    if (text.length < 3) {
+      return <Text style={{fontWeight: "bold", alignSelf: "center", marginTop: 16}}>No results for current search</Text>
+    } else if (isLoading) {
+      return (
+        <View style={styles.loadingAnimationContainer}>
+          <ActivityIndicator size="large" />
+        </View>
+      )
+    }
+    return (
+      <View>
+        <FlatList data={groceryItems} renderItem={renderItem} />
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
@@ -173,21 +182,7 @@ export default function SearchForFoodItem({ navigation, route }) {
           ref={textInputSearchRef}
         />
       </View>
-      {groceryItems.length === 0 ? (
-        <Text>No results for current search</Text>
-      ) : (
-        <FlatList data={groceryItems} renderItem={renderItem} />
-      )}
-
-      {showDatePicker && (
-        <DateTimePicker
-          value={expireDate}
-          mode="date"
-          is24Hour={true}
-          display="default"
-          onChange={handleDateSelect}
-        />
-      )}
+      <SearchResults />
     </View>
-  );
+  )
 }

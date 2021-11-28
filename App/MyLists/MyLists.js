@@ -86,7 +86,7 @@ export default function ShoppingList({ data, navigation, route }) {
               <View style={styles.flexbox}>
                 <Text style={styles.titlestyles}>{shoppingItem.title}</Text>
                 <Text style={{ marginLeft: "auto" }}>
-                  {shoppingItem.dateCreated}
+                  {new Date(shoppingItem.dateCreated).toDateString()}
                 </Text>
               </View>
               <View style={styles.flexbox}>
@@ -94,7 +94,7 @@ export default function ShoppingList({ data, navigation, route }) {
                   {shoppingItem.items.map((item, index) => {
                     return (
                       <View key={`${item.name}-${index}`}>
-                        <Text>{item.name}, </Text>
+                        <Text style={{ maxWidth: 250}}>{item.name}, </Text>
                       </View>
                     );
                   })}
