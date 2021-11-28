@@ -185,6 +185,8 @@ export default function CreateShoppingList({ route }) {
             "Click OK to visit your lists",
             "My Lists"
           );
+          setItems([...startingItems])
+          setTitle(null)
         });
       } catch (e) {
         console.log(e);

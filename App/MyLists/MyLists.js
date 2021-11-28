@@ -4,6 +4,7 @@
 //
 
 import React, { useState, useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -16,9 +17,9 @@ import { useNavigation } from "@react-navigation/native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function ShoppingList({ data, navigation }) {
-  // const navigation = useNavigation();
+export default function ShoppingList({ data, navigation, route }) {
 
+  const isFocused = useIsFocused();
 
   const getListData = async () => {
     try {
@@ -27,17 +28,25 @@ export default function ShoppingList({ data, navigation }) {
       return e;
     }
   };
-  
+
+  const listToMemory = async (newList) => {
+    try {
+      let stringList = JSON.stringify(newList)
+      AsyncStorage.setItem("my-lists", stringList)
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     getListData().then((res) => {
       let parsed = JSON.parse(res);
-      if(!parsed || parsed.length === undefined) {
-        parsed = []
+      if (!parsed || parsed.length === undefined) {
+        parsed = [];
       }
       setListData(parsed);
     });
-  }, []);
+  }, [isFocused]);
 
   const [listData, setListData] = useState([]);
 
@@ -46,6 +55,8 @@ export default function ShoppingList({ data, navigation }) {
     const toDeleteIndex = listData.findIndex((list) => list.title === title);
     listData.splice(toDeleteIndex, 1);
     setListData([...listData]);
+    listToMemory([...listData])
+
   };
 
   if (listData.length === 0) {
@@ -65,12 +76,13 @@ export default function ShoppingList({ data, navigation }) {
 
   return (
     <View style={styles.shoppingListView}>
-      {listData.map((shoppingItem) => {
+      {listData.map((shoppingItem, upperIndex) => {
         return (
           <TouchableOpacity
+            key={`${shoppingItem.title}-${upperIndex} `}
             onPress={() => navigation.navigate("Manage List", shoppingItem)}
           >
-            <View key={shoppingItem.title} style={styles.listRow}>
+            <View style={styles.listRow}>
               <View style={styles.flexbox}>
                 <Text style={styles.titlestyles}>{shoppingItem.title}</Text>
                 <Text style={{ marginLeft: "auto" }}>
@@ -79,9 +91,9 @@ export default function ShoppingList({ data, navigation }) {
               </View>
               <View style={styles.flexbox}>
                 <Text style={{ width: "80%" }}>
-                  {shoppingItem.items.map((item) => {
+                  {shoppingItem.items.map((item, index) => {
                     return (
-                      <View key={item.name}>
+                      <View key={`${item.name}-${index}`}>
                         <Text>{item.name}, </Text>
                       </View>
                     );
