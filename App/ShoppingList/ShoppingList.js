@@ -56,32 +56,58 @@ export default function ShoppingList({ route }) {
     }
   };
 
+  const getListData = async () => {
+    try {
+      return await AsyncStorage.getItem("my-lists");
+    } catch (e) {
+      return e;
+    }
+  };
+
+  const deleteFromStorage = async (index) => {
+      //update local storage with deleted item
+      try {
+        let storedItems = [];
+        getListData().then((res) => {
+          let parsed = JSON.parse(res);
+          storedItems = parsed;
+          let parentIndex = storedItems.findIndex((item) => item.title === route.params.title)
+          storedItems[parentIndex].items.splice(index, 1)
+          let stringItems = JSON.stringify(storedItems);
+          AsyncStorage.setItem("my-lists", stringItems);
+        })
+      } catch (e) {
+        console.log(e);
+      }
+  }
+
   const onTrash = async (index, shoppingItem) => {
-    let newList = items.splice(index, 1);
-    setItems(newList);
+    let copyItems = [...items]
+    copyItems.splice(index, 1)
+    setItems(copyItems);
 
     // store info about wasted item
     try {
       const formatted = {
         name: shoppingItem.name,
-        dateWasted: shoppingItem.shelfLife,
+        dateWasted: new Date(),
       };
       let storedItems = [];
       getWasteData().then((res) => {
-        const parsed = JSON.parse(res);
+        let parsed = JSON.parse(res);
         if (parsed !== "" && parsed) {
           storedItems = parsed;
         }
         storedItems.push(formatted);
-        const stringItems = JSON.stringify(storedItems);
+        let stringItems = JSON.stringify(storedItems);
         AsyncStorage.setItem("my-waste", stringItems);
+      }).then((res) => {
+        deleteFromStorage(index)
       });
     } catch (e) {
       console.log(e);
     }
 
-    //update local storage with deleted item 
-    // ADD CODE HERE ....
   };
 
   return (

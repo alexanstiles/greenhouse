@@ -1,6 +1,6 @@
 import axios from 'axios'
 const baseUrl = 'https://bing-image-search1.p.rapidapi.com/images/'
-const token = '185242e051msh5295af43960ebd6p1869a9jsn7eb793faef1b'
+const token = '7661a19926msh14f8d88ebecd919p11b643jsn47630f8215b4'
 
 const getImage = async (itemName) => {
     const options = {
