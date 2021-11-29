@@ -17,7 +17,7 @@ import CreateShoppingList from "./App/CreateShoppingList/CreateShoppingList"
 import { AppLoading, DangerZone } from "expo"
 import { createAppContainer, createStackNavigator, StackRouter } from "@react-navigation/stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { NavigationContainer } from "@react-navigation/native"
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native"
 import { AntDesign } from '@expo/vector-icons'
 import {Ionicons} from '@expo/vector-icons'
 
@@ -81,8 +81,15 @@ export default class App extends React.Component {
 				backgroundColor: "#ffffff"
 			}
 		})
+		const navigationContainerTheme = {
+			...DefaultTheme,
+			colors: {
+				...DefaultTheme.colors,
+				background: "white"
+			},
+		};
 		return (
-			<NavigationContainer style={styles.navigationContainer}>
+			<NavigationContainer style={styles.navigationContainer} theme={navigationContainerTheme}>
 				<rootStack.Navigator
 					screenOptions={({route}) => ({
 						tabBarIcon: ({ focused, color, size }) => {
