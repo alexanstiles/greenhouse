@@ -4,6 +4,7 @@
 //
 
 import React, { useState, useEffect } from "react";
+import { LogBox } from 'react-native';
 import { useIsFocused } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -20,6 +21,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function ShoppingList({ data, navigation, route }) {
 
   const isFocused = useIsFocused();
+  LogBox.ignoreAllLogs() // Disables warning messages for demo purposes
 
   const getListData = async () => {
     try {

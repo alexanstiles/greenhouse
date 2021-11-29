@@ -7,6 +7,7 @@
 //
 
 import React, { useRef, useEffect, useState } from "react"
+import { LogBox } from 'react-native';
 import {
   Image,
   StyleSheet,
@@ -28,7 +29,9 @@ export default function SearchForFoodItem({ navigation, route }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [groceryItems, setGroceryItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
+  LogBox.ignoreAllLogs() // Disables warning messages for demo purposes
 
+  
   useEffect(() => {
     setTimeout(() => textInputSearchRef.current.focus(), 100);
   }, []);
