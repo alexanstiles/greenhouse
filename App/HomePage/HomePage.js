@@ -95,28 +95,28 @@ export default function HomePage() {
 			{
 				name: pieChartData[0].name,
 				value: pieChartData[0].value,
-				color: "#855CF8",
+				color: "#DE4032",
 				legendFontColor: "#181818",
 				legendFontSize: 13
 			},
 			{
 				name: pieChartData[1].name,
 				value: pieChartData[1].value,
-				color: "#E289F2",
+				color: "#3F7EE8",
 				legendFontColor: "#181818",
 				legendFontSize: 13
 			},
 			{
 				name: pieChartData[2].name,
 				value: pieChartData[2].value,
-				color: "#503795",
+				color: "#EEB205",
 				legendFontColor: "#181818",
 				legendFontSize: 13
 			},
 			{
 				name: pieChartData[3].name,
 				value: pieChartData[3].value,
-				color: "#B085FF",
+				color: "#319F4F",
 				legendFontColor: "#181818",
 				legendFontSize: 13
 			}
@@ -188,11 +188,12 @@ export default function HomePage() {
 					<PieChart
 						data={pieData}
 						width={screenWidth + 30}
-						height={220}
+						height={240}
 						chartConfig={chartConfig}
 						accessor="value"
-						backgroundColor="transparent"
-						paddingLeft="10"
+						backgroundColor="none"
+						paddingLeft={"7"}
+						
 					/>
 				</View>
 			</View>
