@@ -85,6 +85,16 @@ export default function CreateShoppingList({ route }) {
       marginVertical: "1rem",
       marginHorizontal: "1.5rem",
     },
+    buttonSearch: {
+      backgroundColor: "#0071dbfa",
+      borderRadius: 100,
+      marginTop: "auto",
+      marginBottom: "2rem",
+
+      paddingVertical: "1rem",
+      marginVertical: "1rem",
+      marginHorizontal: "1.5rem",
+    },
     buttonFinishedText: {
       color: "white",
       alignSelf: "center",
@@ -94,9 +104,10 @@ export default function CreateShoppingList({ route }) {
       fontSize: 24,
       margin: "auto",
       marginTop: 20,
-      backgroundColor: "white",
+      backgroundColor: "#ededed",
       borderRadius: 8,
       padding: 20,
+      marginHorizontal: "1.5rem",
     },
   });
 
@@ -199,12 +210,12 @@ export default function CreateShoppingList({ route }) {
           style={styles.input}
           onChangeText={(e) => setTitle(e)}
           value={title}
-          placeholder="Enter title here..."
+          placeholder="Enter a list title here..."
         />
       </SafeAreaView>
       <FlatList style={styles.list} data={items} renderItem={renderItem} />
       <TouchableOpacity
-        style={styles.buttonFinished}
+        style={styles.buttonSearch}
         onPress={() => {
           navigation.navigate("Search Item");
         }}

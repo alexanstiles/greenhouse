@@ -51,6 +51,7 @@ export default function HomePage() {
 		try {
 			getWasteData().then((res) => {
 				let parsed = JSON.parse(res);
+                console.log("🚀 ~ file: HomePage.js ~ line 54 ~ getWasteData ~ parsed", parsed)
 				let numWasted = parsed.length
 				setLineChartData([numWasted, 0, 0, 0, 0, 0])
 				
