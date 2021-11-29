@@ -101,7 +101,16 @@ export default function SearchForFoodItem({ navigation, route }) {
     loadingAnimation: {
       width: 100,
       height: 100
-    }
+    },
+    input: {
+      fontSize: 24,
+      marginTop: 20,
+      marginBottom: 20,
+      backgroundColor: "#ededed",
+      borderRadius: 8,
+      padding: 20,
+      marginHorizontal: "1.5rem",
+    },
   });
 
   const selectItem = (item) => {
@@ -159,7 +168,7 @@ export default function SearchForFoodItem({ navigation, route }) {
 
   const SearchResults = (props) => {
     if (text.length < 3) {
-      return <Text style={{fontWeight: "bold", alignSelf: "center", marginTop: 16}}>No results for current search</Text>
+      return <Text style={{fontWeight: "bold", alignSelf: "center", marginTop: 16, fontSize: 20}}>No results for current search {"\n"} (enter 3 or more characters)</Text>
     } else if (isLoading) {
       return (
         <View style={styles.loadingAnimationContainer}>
@@ -178,7 +187,7 @@ export default function SearchForFoodItem({ navigation, route }) {
     <View style={styles.container}>
       <View>
         <TextInput
-          style={styles.textInputSearch}
+          style={styles.input}
           onChangeText={handleTextChange}
           value={text}
           placeholder="Enter an item name..."
