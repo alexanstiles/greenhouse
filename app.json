@@ -23,7 +23,8 @@
     },
     "android": {
       "package": "com.greenhousedesigns.greenhouse",
-      "versionCode": 1
+      "versionCode": 1,
+      "softwareKeyboardLayoutMode": "pan"
     },
     "description": "",
     "slug": "greenhouse",
