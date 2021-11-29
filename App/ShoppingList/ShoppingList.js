@@ -81,6 +81,12 @@ export default function ShoppingList({ route }) {
       }
   }
 
+  const onConsume = (index) => {
+    let copyItems = [...items]
+    copyItems.splice(index, 1)
+    setItems(copyItems);
+    deleteFromStorage(index);
+  }
   const onTrash = async (index, shoppingItem) => {
     let copyItems = [...items]
     copyItems.splice(index, 1)
@@ -140,7 +146,9 @@ export default function ShoppingList({ route }) {
                 <Text>Thrown out / Expired</Text>
               </TouchableOpacity>
               {!boolIsExpired(shoppingItem.shelfLife) && (
-                <TouchableOpacity style={styles.centerAlign}>
+                <TouchableOpacity
+                  onPress={() => onConsume(index)}
+                  style={styles.centerAlign}>
                   <View style={styles.imageAlign}>
                     <Image
                       source={require("./../../assets/images/silverware.png")}
