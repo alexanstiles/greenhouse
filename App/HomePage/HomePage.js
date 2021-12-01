@@ -53,7 +53,17 @@ export default function HomePage() {
 				let parsed = JSON.parse(res);
                 console.log("🚀 ~ file: HomePage.js ~ line 54 ~ getWasteData ~ parsed", parsed)
 				let numWasted = parsed.length
-				setLineChartData([numWasted, 0, 0, 0, 0, 0])
+				let retArray = [0, 0, 0, 0, 0, 0];
+				parsed.forEach((obj) => {
+					if (new Date(obj.dateWasted).getMonth() == 10) {
+						retArray[0] += 1;
+					}
+					if (new Date(obj.dateWasted).getMonth() == 11) {
+						retArray[1] += 1;
+					}
+					
+				});
+				setLineChartData(retArray);
 				
 				const wastedItems = {};
 				parsed.forEach((obj) => {
