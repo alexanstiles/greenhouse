@@ -139,3 +139,8 @@ docs/pages/versions/*/react-native/*.diff
 
 # VSCode workspace
 greenhouse.code-workspace
+pc-api-6578978318387907193-858-c34efd0bc474.json
+@cs4720__greenhouse-keystore-credentials.md
+@cs4720__greenhouse-keystore.bak.jks
+
+*.pem
