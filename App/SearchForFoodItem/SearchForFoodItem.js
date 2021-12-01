@@ -31,7 +31,7 @@ export default function SearchForFoodItem({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false)
   LogBox.ignoreAllLogs() // Disables warning messages for demo purposes
 
-  
+
   useEffect(() => {
     setTimeout(() => textInputSearchRef.current.focus(), 100);
   }, []);
@@ -70,6 +70,7 @@ export default function SearchForFoodItem({ navigation, route }) {
       width: "100%",
       height: "100%",
       resizeMode: "contain",
+      borderRadius: 16
     },
     textInputSearch: {
       borderWidth: 3,
@@ -168,11 +169,16 @@ export default function SearchForFoodItem({ navigation, route }) {
 
   const SearchResults = (props) => {
     if (text.length < 3) {
-      return <Text style={{fontWeight: "bold", alignSelf: "center", marginTop: 16, fontSize: 20}}>No results for current search {"\n"} (enter 3 or more characters)</Text>
+      return (
+        <View>
+          <Text style={{ fontWeight: "bold", alignSelf: "center", textAlign: "center", marginTop: 20, marginHorizontal: 32, fontSize: 20 }}>No results for current search</Text>
+          <Text style={{ alignSelf: "center", textAlign: "center" }}>Enter 3 or more characters</Text>
+        </View>
+      )
     } else if (isLoading) {
       return (
         <View style={styles.loadingAnimationContainer}>
-          <ActivityIndicator size="large" />
+          <ActivityIndicator color="#999999" size="large" />
         </View>
       )
     }
