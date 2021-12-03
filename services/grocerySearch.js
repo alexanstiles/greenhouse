@@ -26,7 +26,7 @@ const getGroceryItems = async (itemName) => {
     console.log("🚀 ~ file: grocerySearch.js ~ line 25 ~ getGroceryItems ~ response", response)
 
     let groceryItems = response.data
-    groceryItems = groceryItems.slice(0, 2)
+    groceryItems = groceryItems.slice(0, 5)
     for (const item of groceryItems) {
         item.image = await imageService.getImage(item.name)
         item.shelfLife = await getShelfLife(item.id)
