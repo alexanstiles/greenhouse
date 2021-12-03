@@ -213,6 +213,12 @@ export default function CreateShoppingList({ route }) {
           placeholder="Enter a list title here..."
         />
       </SafeAreaView>
+      {items.length === 0 &&
+        <View>
+          <Text style={{ fontWeight: "bold", alignSelf: "center", textAlign: "center", marginTop: 20, marginHorizontal: 32, fontSize: 20 }}>This list looks empty</Text>
+          <Text style={{ alignSelf: "center", textAlign: "center" }}>Add items with Open Search Page</Text>
+        </View>
+      }
       <FlatList style={styles.list} data={items} renderItem={renderItem} />
       <TouchableOpacity
         style={styles.buttonSearch}
